@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SAASBM_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SAASBM_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SAASBM_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SAASBM_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SAASBM_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SAASBM_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="SAASBM_ADMIN"/>
+</entity-engine-xml>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the SaasBm Component." permissionId="SAASBM_VIEW"/>
+    <SecurityPermission description="Create operations in the SaasBm Component." permissionId="SAASBM_CREATE"/>
+    <SecurityPermission description="Update operations in the SaasBm Component." permissionId="SAASBM_UPDATE"/>
+    <SecurityPermission description="Delete operations in the SaasBm Component." permissionId="SAASBM_DELETE"/>
+    <SecurityPermission description="ALL operations in the SaasBm Component." permissionId="SAASBM_ADMIN"/>
+
+    <SecurityGroupPermission groupId="SUPER" permissionId="SAASBM_ADMIN"/>
+
+</entity-engine-xml>

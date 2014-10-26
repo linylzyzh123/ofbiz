@@ -1,0 +1,222 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	overflow: inherit;
+}
+
+body {
+	background: url('/resources/images/bg.jpg') no-repeat 0 0;
+}
+
+a {
+	color: #428bca;
+	text-decoration: none;
+	outline: none;
+}
+
+ul {
+	list-style: none;
+}
+
+.search-ctrl {
+	width: 260px;
+	height: 28px;
+}
+
+.button {
+	height: 28px;
+}
+
+.toolbar .button {
+	float: left;
+	margin-right: 5px;
+}
+
+.clearfix {
+	overflow: auto;
+}
+
+
+
+
+
+.container {
+	width: 1170px;
+	max-width: 1170px;
+	margin: 0 auto;
+	background: #ffffff;
+}
+
+.nav-header {
+    overflow: auto;
+    
+    background: #3333CA;
+}
+
+.nav-bar-left {
+	float: left;
+	overflow: auto;
+}
+.top-logo {
+	float: left;
+	overflow: auto;
+}
+
+#logo {
+	width: 100px;
+	max-width: 100px;
+	height: 50px;
+}
+.top-menu {
+	float: left;
+	padding: 10px 0px 10px 15px;
+}
+.menu-item {
+	float: left;
+	width: 90px;
+	height: 28px;
+	border: 1px solid grey;
+	background: yellow;
+}
+.menu-item.active {
+	background: red;
+}
+
+
+.nav-bar-right {
+	float: right;
+	overflow: auto;	
+}
+.top-search {
+	float: left;
+	width: 350px;
+	padding: 10px 15px 10px 0px;
+}
+.account {
+	width: 120px;
+	float: right;
+	overflow: auto;
+	padding: 10px 15px 10px 0px;
+}
+.account-menu {
+	width: 100px;
+	height: 28px;
+	border: 1px solid grey;
+}
+
+
+
+#main-body {
+
+	
+}
+
+#footer {
+	position: fixed;
+	bottom: 0px;
+	height: 50px;
+	background: blue;
+}
+
+
+
+
+
+
+
+
+
+
+/** bm **/
+
+#bm-container {
+	overflow: auto;
+}
+
+#bm-header {
+}
+.bm-title {
+	font: 18px bold;
+	line-height: 20px;
+	padding: 5px;
+	overflow: auto;
+}
+.t1 {
+	float: left;
+	overflow: auto;
+}
+.t2 {
+	float: right;
+	padding: 5px;
+}
+.t21 {
+	float: left;
+	padding: 5px;
+}
+.t22 {
+	float: right;
+	overflow: auto;
+}
+
+#bm-body {
+	
+}
+
+#bm-left {
+	display: inline-block;
+	vertical-align: top;
+	width: 230px;
+}
+
+#bm-table-view {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 5px;
+	width: 920px;
+}
+
+#bm-footer {
+	position: relative;
+	bottom: 0px;
+	height: 30px;
+	padding: 10px;
+	overflow: auto;
+	background: gray;
+}
+
+#bm-footer .toolbar {
+	float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
