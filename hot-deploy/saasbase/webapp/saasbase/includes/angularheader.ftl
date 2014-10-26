@@ -2,7 +2,8 @@
 <html>
 <head>
 <title id="head_title_Id">${head_title!''}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="${path}/angular-material/angular-material.css">
 <#assign path="/resources">
 
 <#--
@@ -31,6 +32,11 @@ jQuery(function() {
 
 <script type="text/javascript" src="${path}/angular/angular.min.js"></script>
 <script type="text/javascript" src="${path}/angular/angular-route.min.js"></script>
+
+<script src="${path}/angular-aria/angular-aria.js"></script>
+<script src="${path}/angular-animate/angular-animate.js"></script>
+<#--<script src="/bower_components/hammerjs/hammer.js"></script>-->
+<script src="${path}/angular-material/angular-material.js"></script>
 
 <#--
 <script type="text/javascript" src="${path}/bootstrap/js/bootstrap.min.js"></script>
@@ -155,7 +161,8 @@ function goingDIV(){
 </style>
 -->
 </head>
-<body style="overflow-x:hidden;">
+<body>
+
 <#--
 <div id="wait_div" style="width: 100%; z-index: 8000; height: 100%; position: absolute; display: none; background-color: rgb(0, 0, 0);opacity:0.3;text-align:center">
 <img style="" id="wait_img" src="${path}/ehe/common/images/wait.gif" />
