@@ -161,7 +161,7 @@ function goingDIV(){
 </style>
 -->
 </head>
-<body>
+<body ng-app>
 
 <#--
 <div id="wait_div" style="width: 100%; z-index: 8000; height: 100%; position: absolute; display: none; background-color: rgb(0, 0, 0);opacity:0.3;text-align:center">
