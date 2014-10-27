@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="saasApp" ng-controller="MainController">
 <head>
 <title id="head_title_Id">${head_title!''}</title>
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="${path}/angular-material/angular-material.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <#assign path="/resources">
 
 <#--
@@ -14,34 +13,41 @@
 <#--jquery-->
 <script type="text/javascript" src="${path}/jquery/jquery-1.11.1.min.js"></script>
 
-
-<script type="text/javascript">
-	$.browser = $.browser || {};
-	$.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
-	$.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
-	$.browser.opera = /opera/.tes<#--
+<#--
 <script type="text/javascript">
 jQuery(function() {
 	jQuery(".datepicker").datepicker({changeYear: true,changeMonth: true}).datepicker( "option", "yearRange", "1900:2100" );
 });
 </script>
--->t(navigator.userAgent.toLowerCase());
+-->
+
+<script type="text/javascript">
+	$.browser = $.browser || {};
+	$.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
+	$.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+	$.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
 	$.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 	
 </script>
 
 <script type="text/javascript" src="${path}/angular/angular.min.js"></script>
 <script type="text/javascript" src="${path}/angular/angular-route.min.js"></script>
+<script type="text/javascript" src="${path}/angular/angular-aria/angular-aria.js"></script>
+<script type="text/javascript" src="${path}/angular/angular-animate/angular-animate.js"></script>
+	
+<script type="text/javascript" src="${path}/hammerjs/hammer.min.js"></script>
 
-<script src="${path}/angular-aria/angular-aria.js"></script>
-<script src="${path}/angular-animate/angular-animate.js"></script>
-<#--<script src="/bower_components/hammerjs/hammer.js"></script>-->
-<script src="${path}/angular-material/angular-material.js"></script>
+<link rel="stylesheet" href="${path}/ehe/material/eheMaterial.css">
+<script type="text/javascript" src="${path}/ehe/material/eheMaterial.js"></script>
 
-<#--
-<script type="text/javascript" src="${path}/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${path}/bootstrap/js/ui-bootstrap-tpls.js"></script>
--->
+<link href="${path}/ehe/saas/css/saasApp.css" rel="stylesheet">
+
+
+<script type="text/javascript" src="${path}/ehe/saas/js/saasCtrl.js"></script>
+<script type="text/javascript" src="${path}/ehe/saas/js/saasDirectives.js"></script>
+<script type="text/javascript" src="${path}/ehe/saas/js/saasApp.js"></script>
+
+
 
 <#-- jquery UI -->
 <#--
@@ -161,8 +167,7 @@ function goingDIV(){
 </style>
 -->
 </head>
-<body ng-app>
-
+<body style="overflow-x:hidden;">
 <#--
 <div id="wait_div" style="width: 100%; z-index: 8000; height: 100%; position: absolute; display: none; background-color: rgb(0, 0, 0);opacity:0.3;text-align:center">
 <img style="" id="wait_img" src="${path}/ehe/common/images/wait.gif" />

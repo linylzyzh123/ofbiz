@@ -25,8 +25,8 @@
 		<ul class="nav navbar-nav navbar-right">	
 			<li class="top-search search-view">
 				<div class="search-form">
-					<input type="search" placeholder="输入工程名/客户名/地址/电话号码 搜索工程" maxlength="100" class="form-control search-input pull-left">
-					<button class="search-btn btn btn-default pull-left">
+					<input type="search" placeholder="输入工程名/客户名/地址/电话号码 搜索工程" ng-model="dingeku.cailiao[0].name" maxlength="100" class="form-control search-input pull-left">
+					<button class="search-btn btn btn-default pull-left"  ng-click="sousuo()">
 						搜索
 						<#--<span class="icon icon-search"></span>-->
 					</button>
@@ -60,9 +60,9 @@
 						<div class="t211">吴女士 1390000000 二室一厅 138平 美式 高档</div>
 						<div class="t212"><a href="#" style="color:orange;">详细>></a></div>
 					</div>
-					<div class="t22">
+					<div>
 						<div class="bm-title3">预算总价</div>
-						<div class="bm-title4"> $200,000</div>
+						<div class="bm-title4"> ￥200,000</div>
 					</div>
 				</div>
 			</div>
@@ -70,7 +70,6 @@
 			<div id="bm-body">
 				<div id="bm-left">
 					
-					<div class="side-nav">
 						<div class="panel whiteframe-z1">
 							
 							<div class="toolbar demo-toolbar">
@@ -81,13 +80,14 @@
 							    </div>
 							</div>
 							<div class="content content-padding" style="height:250px;">
-								<div><span>装饰工程</span></div>
+								
+								<div><pre><span>   装饰工程</span></pre></div>
         						<ul>
-            						<li><a href="#">客厅</a><span>（3.5*3.5*2.8）</span></li>
-            						<li><a href="#">主卧</a><span>（4*3.5*2.8）</span></li>
-            						<li><a href="#">次卧</a><span>（3.2*3.2*2.8）</span></li>
-           						 	<li><a href="#">餐厅</a><span>（3*3.2*2.8）</span></li>
-            						<li><a href="#">卫生间</a><span>（2.5*3*2.6）</span></li>
+            						<li><pre><a href="#">       客厅</a><span>（3.5*3.5*2.8）</span></pre></li>
+            						<li><pre><a href="#">       主卧</a><span>（4*3.5*2.8）</span></pre></li>
+            						<li><pre><a href="#">       次卧</a><span>（3.2*3.2*2.8）</span></pre></li>
+           						 	<li><pre><a href="#">       餐厅</a><span>（3*3.2*2.8）</span></pre></li>
+            						<li><pre><a href="#">       卫生间</a><span>（2.5*3*2.6）</span></pre></li>
 								</ul>
 							</div>
 						</div>
@@ -104,9 +104,9 @@
 								<div>
 									<select style="width:189px;" class="form-control"> 
 										<option>不限</option> 
-										<option>工艺定额</option> 
-										<option>材料定额</option> 
-										<option>人工定额</option> 
+										<option ng-repeat="quota in quotas.type" value="{{quota.id}}">
+											{{quota.name}}
+										</option> 
 									</select> 
 								</div>
 								<div class="bm-row">
@@ -123,7 +123,6 @@
 							</div>
 						</div>
 						
-					</div>
 					
 				</div>	
 				<div id="bm-table-view" class="panel whiteframe-z1" style="min-height: 300px;">
@@ -139,41 +138,13 @@
         							<th>备注</th>
     							</tr>
     						</thead>
-    							<tr>
-       								 <td>23333</td>        
-       								 <td>23333</td>
-        							 <td>23333</td>
+    							<tr ng-repeat="dinge in dingeku.cailiao">
+       								 <td>{{dinge.id}}</td>        
+       								 <td>{{dinge.name}}</td>
+        							 <td>{{dinge.price}}</td>
         							 <td>23333</td>
         							 <td>23333</td>
    								 </tr>
-   								 <tr>
-       								 <td>23333</td>        
-       								 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>   
-   								 <tr>
-       								 <td>23333</td>        
-       								 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>   
-   								 <tr>
-       								 <td>23333</td>        
-       								 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>   
-   								 <tr>
-       								 <td>23333</td>        
-       								 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>         
 						</table>
 					</div>
 					
@@ -183,6 +154,7 @@
 					<div id="bm-footer">
 				
 						<div class="bottom-toolbar">
+							<md-button noink class="md-raised md-primary">Primary (noink)</md-button>
 							<button class="btn btn-default">保存</button>
 							<button class="btn btn-default">保存为模板</button>
 							<button class="btn btn-default">审核锁定</button>
