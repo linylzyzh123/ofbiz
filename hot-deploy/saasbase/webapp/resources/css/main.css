@@ -320,13 +320,19 @@ shadow
 	width: 100%;
   	bottom: 0px;
 	height: 60px;
-	padding: 10px;
 	overflow: auto;
 	background: #e6e6e6;
 }
 
 .bottom-toolbar {
 	float: right;
+	height: 100%;
+	padding: 10px;
+}
+
+.bottom-toolbar md-button {
+	margin: 0 5px;
+	line-height: 25px;
 }
 
 .bm-search{

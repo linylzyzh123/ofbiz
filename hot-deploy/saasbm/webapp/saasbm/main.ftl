@@ -138,28 +138,7 @@
         							<th>备注</th>
     							</tr>
     						</thead>
-    							<tr>
-       								 <td>2222</td>        
-       								 <td>22222</td>
-        							 <td>22222</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>
-   								 <tr>
-       								 <td>2222</td>        
-       								 <td>22222</td>
-        							 <td>22222</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>
-   								 <tr>
-       								 <td>2222</td>        
-       								 <td>22222</td>
-        							 <td>22222</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>
-   								 <tr>
+    							<tr ng-repeat="i in [1,2,3,4,5]">
        								 <td>2222</td>        
        								 <td>22222</td>
         							 <td>22222</td>
@@ -169,21 +148,16 @@
 						</table>
 					</div>
 					
-								
-					<div style="padding: 20px;">
-						<md-button class="md-raised md-primary">Primary</md-button>
-					
-					</div>
 					
 					<div id="bm-footer">
 				
 						<div class="bottom-toolbar">
-							<button class="btn btn-default">保存</button>
-							<button class="btn btn-default">保存为模板</button>
-							<button class="btn btn-default">审核锁定</button>
-							<button class="btn btn-default">导出</button>
-							<button class="btn btn-default">打印</button>
-							<button class="btn btn-default">邮件发送</button>
+							<md-button class="md-raised md-primary">保存</md-button>
+							<md-button class="md-raised md-default">保存为模板</md-button>
+							<md-button class="md-raised md-warn">审核锁定</md-button>
+							<md-button class="md-raised md-default">导出</md-button>
+							<md-button class="md-raised md-default">打印</md-button>
+							<md-button class="md-raised md-default">邮件发送</md-button>
 						</div>
 						
 					</div>
