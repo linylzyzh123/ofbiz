@@ -8,7 +8,7 @@
 			<img id="logo" src="/resources/images/logo.png"/>
 		</div>
 		<ul class="nav navbar-nav top-menu">
-			<li class="title-four active">
+			<li class="title-four selected">
 				<a>首页</a>
 			</li>
 			<li class="title-four">
@@ -138,10 +138,31 @@
         							<th>备注</th>
     							</tr>
     						</thead>
-    							<tr ng-repeat="dinge in dingeku.cailiao">
-       								 <td>{{dinge.id}}</td>        
-       								 <td>{{dinge.name}}</td>
-        							 <td>{{dinge.price}}</td>
+    							<tr>
+       								 <td>2222</td>        
+       								 <td>22222</td>
+        							 <td>22222</td>
+        							 <td>23333</td>
+        							 <td>23333</td>
+   								 </tr>
+   								 <tr>
+       								 <td>2222</td>        
+       								 <td>22222</td>
+        							 <td>22222</td>
+        							 <td>23333</td>
+        							 <td>23333</td>
+   								 </tr>
+   								 <tr>
+       								 <td>2222</td>        
+       								 <td>22222</td>
+        							 <td>22222</td>
+        							 <td>23333</td>
+        							 <td>23333</td>
+   								 </tr>
+   								 <tr>
+       								 <td>2222</td>        
+       								 <td>22222</td>
+        							 <td>22222</td>
         							 <td>23333</td>
         							 <td>23333</td>
    								 </tr>
@@ -149,12 +170,14 @@
 					</div>
 					
 								
+					<div style="padding: 20px;">
+						<md-button class="md-raised md-primary">Primary</md-button>
 					
+					</div>
 					
 					<div id="bm-footer">
 				
 						<div class="bottom-toolbar">
-							<md-button noink class="md-raised md-primary">Primary (noink)</md-button>
 							<button class="btn btn-default">保存</button>
 							<button class="btn btn-default">保存为模板</button>
 							<button class="btn btn-default">审核锁定</button>

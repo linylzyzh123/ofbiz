@@ -1,5 +1,11 @@
 (function() {
-angular.module('eheMaterial', ["ng","ngAnimate","ngAria","material.core","material.decorators","material.animations"]);})();
+angular.module('eheMaterial', ["ng","ngAnimate","ngAria",
+                               "material.core","material.decorators","material.animations",
+                               "material.services.aria","material.services.theming",
+                               'material.components.button'
+                               ]
+			);}
+)();
 
 (function() {
   /**
@@ -1677,94 +1683,271 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) {
 
 
 
-/**
- * @ngdoc directive
- * @name eheToolbar
- * @module material.components.toolbar
- * @restrict E
- * @description
- * `ehe-toolbar` is used to place a toolbar in your app.
- *
- * Toolbars are usually used above a content area to display the title of the
- * current page, and show relevant action buttons for that page.
- *
- * You can change the height of the toolbar by adding either the
- * `ehe-medium-tall` or `ehe-tall` class to the toolbar.
- *
- * @usage
- * <hljs lang="html">
- * <div layout="vertical" layout-fill>
- *   <ehe-toolbar>
- *
- *     <div class="ehe-toolbar-tools">
- *       <span>My App's Title</span>
- *
- *       <!-- fill up the space between left and right area -->
- *       <span flex></span>
- *
- *       <ehe-button>
- *         Right Bar Button
- *       </ehe-button>
- *     </div>
- *
- *   </ehe-toolbar>
- *   <ehe-content>
- *     Hello!
- *   </ehe-content>
- * </div>
- * </hljs>
- *
- * @param {boolean=} scrollShrink Whether the header should shrink away as 
- * the user scrolls down, and reveal itself as the user scrolls up. 
- * Note: for scrollShrink to work, the toolbar must be a sibling of a 
- * `md-content` element, placed before it. See the scroll shrink demo.
- *
- *
- * @param {number=} shrinkSpeedFactor How much to change the speed of the toolbar's
- * shrinking by. For example, if 0.25 is given then the toolbar will shrink
- * at one fourth the rate at which the user scrolls down. Default 0.5.
- */ 
-module.directive('eheToolbar', function() {
-    return {
-        restrict : 'E',
-        link : function(scope, element, attr) {
-        	
-        	
 
+/**
+ * services
+ */
+
+(function() {
+angular.module('material.services.aria', [])
+
+.service('$mdAria', [
+  '$$rAF',
+  '$log',
+  AriaService
+]);
+
+function AriaService($$rAF, $log) {
+  var messageTemplate = 'ARIA: Attribute "%s", required for accessibility, is missing on "%s"';
+  var defaultValueTemplate = 'Default value was set: %s="%s".';
+
+  return {
+    expect : expectAttribute,
+  };
+
+  /**
+   * Check if expected ARIA has been specified on the target element
+   * @param element
+   * @param attrName
+   * @param copyElementText
+   * @param {optional} defaultValue
+   */
+  function expectAttribute(element, attrName, copyElementText, defaultValue) {
+
+    $$rAF(function(){
+
+      var node = element[0];
+      if (!node.hasAttribute(attrName)) {
+
+        var hasDefault;
+        if(copyElementText === true){
+          if(!defaultValue) defaultValue = element.text().trim();
+          hasDefault = angular.isDefined(defaultValue) && defaultValue.length;
         }
-    };
-});
+
+        if (hasDefault) {
+          defaultValue = String(defaultValue).trim();
+          element.attr(attrName, defaultValue);
+        } else {
+          $log.warn(messageTemplate, attrName, node);
+          $log.warn(node);
+        }
+      }
+    });
+  }
+
+
+  /**
+   * Gets the tag definition from a node's outerHTML
+   * @example getTagString(
+   *   '<md-button foo="bar">Hello</md-button>'
+   * ) // => '<md-button foo="bar">'
+   */
+  function getTagString(node) {
+    var html = node.outerHTML;
+    var closingIndex = html.indexOf('>');
+    return html.substring(0, closingIndex + 1);
+  }
+}
+})();
 
 
 
-/**
- * @ngdoc directive
- * @name mdContent
- * @module material.components.content
- *
- * @restrict E
+(function() {
+/*
+ * @ngdoc module
+ * @name material.services.theming
+ * @description InterimElement
+ */
+
+angular.module('material.services.theming', [
+])
+.directive('mdTheme', [
+  ThemingDirective
+])
+.directive('mdThemable', [
+  '$mdTheming',
+  ThemableDirective
+])
+.factory('$mdTheming', [
+  '$rootScope',
+  Theming
+]);
+
+/*
+ * @ngdoc service
+ * @name $mdTheming
  *
  * @description
- * The `<md-content>` directive is a container element useful for scrollable content
  *
- * @usage
- * <hljs lang="html">
- *  <md-content class="md-content-padding">
- *      Lorem ipsum dolor sit amet, ne quod novum mei.
- *  </md-content>
- * </hljs>
+ * Service that makes an element apply theming related classes to itself.
+ *
+ * ```js
+ * app.directive('myFancyDirective', function($mdTheming) {
+ *   return {
+ *     restrict: 'e',
+ *     link: function(scope, el, attrs) {
+ *       $mdTheming(el);
+ *     }
+ *   };
+ * });
+ * ```
+ * @param {el=} element to apply theming to
+ *
+ * @returns {$$interimElement.$service}
  *
  */
-module.directive('eheContent', function() {
-    return {
-        restrict : 'E',
-        link : function(scope, element, attr) {
-        	
-        	
 
-        }
-    };
-});
+function Theming($rootScope) {
+  return function applyTheme(scope, el) {
+    // Allow us to be invoked via a linking function signature.
+    if (el === undefined) { 
+      el = scope;
+      scope = undefined;
+    }
+    if (scope === undefined) {
+      scope = $rootScope;
+    }
+
+    if (el.attr('md-theme')) { window.debugging = true; }
+    var ctrl = el.controller('mdTheme');
+
+    if (el.attr('md-theme-watch')) { 
+      $scope.$watch(function() { return ctrl && ctrl.$mdTheme || 'default'; }, changeTheme);
+    } else {
+      var theme = ctrl && ctrl.$mdTheme || 'default';
+      changeTheme(theme);
+    }
+
+    function changeTheme(theme, oldTheme) {
+      if (oldTheme) el.removeClass('md-' + theme +'-theme');
+      el.addClass('md-' + theme + '-theme');
+    }
+  };
+}
+
+function ThemingDirective() {
+  return {
+    priority: 100,
+    link: {
+      pre: function(scope, el, attrs) {
+        var ctrl = {
+          $setTheme: function(theme) {
+            this.$mdTheme = theme;
+          }
+        };
+        el.data('$mdThemeController', ctrl);
+        ctrl.$setTheme(attrs.mdTheme);
+        attrs.$observe('mdTheme', ctrl.$setTheme);
+      }
+    }
+  };
+}
+
+function ThemableDirective($mdTheming) {
+  return $mdTheming;
+}
+})();
+
+
+
+
+
+
+
+
+
+
+
+//
+///**
+// * @ngdoc directive
+// * @name eheToolbar
+// * @module material.components.toolbar
+// * @restrict E
+// * @description
+// * `ehe-toolbar` is used to place a toolbar in your app.
+// *
+// * Toolbars are usually used above a content area to display the title of the
+// * current page, and show relevant action buttons for that page.
+// *
+// * You can change the height of the toolbar by adding either the
+// * `ehe-medium-tall` or `ehe-tall` class to the toolbar.
+// *
+// * @usage
+// * <hljs lang="html">
+// * <div layout="vertical" layout-fill>
+// *   <ehe-toolbar>
+// *
+// *     <div class="ehe-toolbar-tools">
+// *       <span>My App's Title</span>
+// *
+// *       <!-- fill up the space between left and right area -->
+// *       <span flex></span>
+// *
+// *       <ehe-button>
+// *         Right Bar Button
+// *       </ehe-button>
+// *     </div>
+// *
+// *   </ehe-toolbar>
+// *   <ehe-content>
+// *     Hello!
+// *   </ehe-content>
+// * </div>
+// * </hljs>
+// *
+// * @param {boolean=} scrollShrink Whether the header should shrink away as 
+// * the user scrolls down, and reveal itself as the user scrolls up. 
+// * Note: for scrollShrink to work, the toolbar must be a sibling of a 
+// * `md-content` element, placed before it. See the scroll shrink demo.
+// *
+// *
+// * @param {number=} shrinkSpeedFactor How much to change the speed of the toolbar's
+// * shrinking by. For example, if 0.25 is given then the toolbar will shrink
+// * at one fourth the rate at which the user scrolls down. Default 0.5.
+// */ 
+//module.directive('eheToolbar', function() {
+//    return {
+//        restrict : 'E',
+//        link : function(scope, element, attr) {
+//        	
+//        	
+//
+//        }
+//    };
+//});
+//
+//
+//
+///**
+// * @ngdoc directive
+// * @name mdContent
+// * @module material.components.content
+// *
+// * @restrict E
+// *
+// * @description
+// * The `<md-content>` directive is a container element useful for scrollable content
+// *
+// * @usage
+// * <hljs lang="html">
+// *  <md-content class="md-content-padding">
+// *      Lorem ipsum dolor sit amet, ne quod novum mei.
+// *  </md-content>
+// * </hljs>
+// *
+// */
+//module.directive('eheContent', function() {
+//    return {
+//        restrict : 'E',
+//        link : function(scope, element, attr) {
+//        	
+//        	
+//
+//        }
+//    };
+//});
 
 
 
@@ -1783,133 +1966,133 @@ module.directive('eheContent', function() {
 
 
 
-/**
- * @ngdoc directive
- * @name mdButton
- * @module material.components.button
- *
- * @restrict E
- *
- * @description
- * `<md-button>` is a button directive with optional ink ripples (default enabled).
- *
- * @param {boolean=} noink If present, disable ripple ink effects.
- * @param {boolean=} disabled If present, disable tab selection.
- * @param {string=} type Optional attribute to specific button types (useful for forms); such as 'submit', etc.
- * @param ----{string=} ng-href Optional attribute to support both ARIA and link navigation
- * @param ----{string=} href Optional attribute to support both ARIA and link navigation
- * @param ----{string=} ariaLabel Publish the button label used by screen-readers for accessibility. Defaults to the button's text.
- *
- * @usage
- * <hljs lang="html">
- *  <md-button>Button</md-button>
- *  <br/>
- *  <md-button noink class="md-button-colored">
- *    Button (noInk)
- *  </md-button>
- *  <br/>
- *  <md-button disabled class="md-button-colored">
- *    Colored (disabled)
- *  </md-button>
- * </hljs>
- */
-module.directive('mdButton', function() {
-	
-//	ngHrefDirectives, $mdInkRipple, $mdAria, $mdUtil, $mdTheming
-	
-//	var ngHrefDirective = ngHrefDirectives[0];
-	
-    return {
-        restrict : 'E',
-        compile: function(element, attr) {
-	        var innerElement;
-	        var attributesToCopy;
-	
-	
-	        // Add an inner anchor if the element has a `href` or `ngHref` attribute,
-	        // so this element can be clicked like a normal `<a>`.
-	        if (attr.ngHref || attr.href) {
-	          innerElement = angular.element('<a>');
-	          attributesToCopy = ['ng-href', 'href', 'rel', 'target'];
-	        // Otherwise, just add an inner button element (for form submission etc)
-	        } else {
-	          innerElement = angular.element('<button>');
-	          attributesToCopy = ['type', 'disabled', 'ng-disabled', 'form'];
-	        }
-	
-//	        angular.forEach(attributesToCopy, function(name) {
-//	          var camelCaseName = $mdUtil.camelCase(name);
-//	          if (attr.hasOwnProperty(camelCaseName)) {
-//	            innerElement.attr(name, attr[camelCaseName]);
-//	          }
-//	        });
-	
-	        innerElement
-	          .addClass('md-button-inner')
-	          .append(element.contents())
-	          // Since we're always passing focus to the inner element,
-	          // add a focus class to the outer element so we can still style
-	          // it with focus.
-	          .on('focus', function() {
-	            element.addClass('focus');
-	          })
-	          .on('blur', function() {
-	            element.removeClass('focus');
-	          });
-	
-	        element.
-	          append(innerElement)
-	          .attr('tabIndex', -1)
-	          //Always pass focus to innerElement
-	          .on('focus', function() {
-	            innerElement.focus();
-	          });
-	
-	        return function postLink(scope, element, attr) {
-//	          $mdTheming(element);
-//	          $mdAria.expect(element, 'aria-label', element.text());
-//	          $mdInkRipple.attachButtonBehavior(element);
-	        };
-        }
-    };
-});
-
-
-
-/**
- * divider
- */
-
-/**
- * whiteframe
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * tree
- */
-
-
-
-
-
-
+///**
+// * @ngdoc directive
+// * @name mdButton
+// * @module material.components.button
+// *
+// * @restrict E
+// *
+// * @description
+// * `<md-button>` is a button directive with optional ink ripples (default enabled).
+// *
+// * @param {boolean=} noink If present, disable ripple ink effects.
+// * @param {boolean=} disabled If present, disable tab selection.
+// * @param {string=} type Optional attribute to specific button types (useful for forms); such as 'submit', etc.
+// * @param ----{string=} ng-href Optional attribute to support both ARIA and link navigation
+// * @param ----{string=} href Optional attribute to support both ARIA and link navigation
+// * @param ----{string=} ariaLabel Publish the button label used by screen-readers for accessibility. Defaults to the button's text.
+// *
+// * @usage
+// * <hljs lang="html">
+// *  <md-button>Button</md-button>
+// *  <br/>
+// *  <md-button noink class="md-button-colored">
+// *    Button (noInk)
+// *  </md-button>
+// *  <br/>
+// *  <md-button disabled class="md-button-colored">
+// *    Colored (disabled)
+// *  </md-button>
+// * </hljs>
+// */
+//module.directive('mdButton', function() {
+//	
+////	ngHrefDirectives, $mdInkRipple, $mdAria, $mdUtil, $mdTheming
+//	
+////	var ngHrefDirective = ngHrefDirectives[0];
+//	
+//    return {
+//        restrict : 'E',
+//        compile: function(element, attr) {
+//	        var innerElement;
+//	        var attributesToCopy;
+//	
+//	
+//	        // Add an inner anchor if the element has a `href` or `ngHref` attribute,
+//	        // so this element can be clicked like a normal `<a>`.
+//	        if (attr.ngHref || attr.href) {
+//	          innerElement = angular.element('<a>');
+//	          attributesToCopy = ['ng-href', 'href', 'rel', 'target'];
+//	        // Otherwise, just add an inner button element (for form submission etc)
+//	        } else {
+//	          innerElement = angular.element('<button>');
+//	          attributesToCopy = ['type', 'disabled', 'ng-disabled', 'form'];
+//	        }
+//	
+////	        angular.forEach(attributesToCopy, function(name) {
+////	          var camelCaseName = $mdUtil.camelCase(name);
+////	          if (attr.hasOwnProperty(camelCaseName)) {
+////	            innerElement.attr(name, attr[camelCaseName]);
+////	          }
+////	        });
+//	
+//	        innerElement
+//	          .addClass('md-button-inner')
+//	          .append(element.contents())
+//	          // Since we're always passing focus to the inner element,
+//	          // add a focus class to the outer element so we can still style
+//	          // it with focus.
+//	          .on('focus', function() {
+//	            element.addClass('focus');
+//	          })
+//	          .on('blur', function() {
+//	            element.removeClass('focus');
+//	          });
+//	
+//	        element.
+//	          append(innerElement)
+//	          .attr('tabIndex', -1)
+//	          //Always pass focus to innerElement
+//	          .on('focus', function() {
+//	            innerElement.focus();
+//	          });
+//	
+//	        return function postLink(scope, element, attr) {
+////	          $mdTheming(element);
+////	          $mdAria.expect(element, 'aria-label', element.text());
+////	          $mdInkRipple.attachButtonBehavior(element);
+//	        };
+//        }
+//    };
+//});
+//
+//
+//
+///**
+// * divider
+// */
+//
+///**
+// * whiteframe
+// */
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+///**
+// * tree
+// */
+//
+//
+//
+//
+//
+//
 
 
 

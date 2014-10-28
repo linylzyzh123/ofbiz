@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html ng-app="saasApp" ng-controller="MainController">
 <head>
 <title id="head_title_Id">${head_title!''}</title>
@@ -32,8 +32,8 @@ jQuery(function() {
 
 <script type="text/javascript" src="${path}/angular/angular.min.js"></script>
 <script type="text/javascript" src="${path}/angular/angular-route.min.js"></script>
-<script type="text/javascript" src="${path}/angular/angular-aria/angular-aria.js"></script>
-<script type="text/javascript" src="${path}/angular/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="${path}/angular/angular-aria.min.js"></script>
+<script type="text/javascript" src="${path}/angular/angular-animate.min.js"></script>
 	
 <script type="text/javascript" src="${path}/hammerjs/hammer.min.js"></script>
 
