@@ -35,6 +35,6 @@
         title="SaasBm"
         server="default-server"
         location="webapp/saasbm"
-        base-permission="OFBTOOLS,SAASBM"
+        base-permission="OFBTOOLS"
         mount-point="/saasbm"/>
 </ofbiz-component>

@@ -69,5 +69,49 @@
 			</widgets>
 		</section>
 	</screen>
+	
+	
+	
+	<screen name="SaasLoginDecorator">
+		<section>
+			<actions>
+				<!-- <script location="component://ehecommon/webapp/ehecommon/WEB-INF/actions/common.bsh" /> -->
+			</actions>
+			<widgets>
+				<platform-specific>
+					<html>
+						<html-template location="component://saasbase/webapp/saasbase/includes/angularheader.ftl" />
+					</html>
+				</platform-specific>
+				<decorator-section-include name="body" />
+			</widgets>
+		</section>
+	</screen>
+	
+	
+	
+	
+	<screen name="login">
+        <section>
+            <actions>
+                <!--<set field="headerItem" value="main"/> this highlights the selected menu-item with name "main" -->
+            </actions>
+            <widgets>
+                <decorator-screen name="SaasLoginDecorator" location="component://saasbase/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                    	<platform-specific>
+							<html>
+								<html-template location="component://saasbase/webapp/saasbase/login.ftl" />
+							</html>
+						</platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+	
+	
+	
+	
     
 </screens>

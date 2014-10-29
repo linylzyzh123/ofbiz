@@ -1,3 +1,4 @@
+<#assign path="/resources">
 <script type="text/javascript">
 jQuery(function() {
 		jQuery(document).ready(function(){
@@ -5,22 +6,14 @@ jQuery(function() {
 			jQuery(window).resize(updateChartSize2);
 		});	
 		jQuery(".editCell_quantity").click(function(event){
-			
 			var text = jQuery(event.currentTarget).children().get(0);
 			jQuery(text).hide().next().show();
 		});
 });
 
-function editQuantity(event) {
-	var text = jQuery(event.currentTarget).children().get(0);
-	var quatityValue = jQuery(text).next().val();
-	jQuery(text).text(quatityValue);
-	alert(quatityValue);
-	jQuery(text).hide().next().show();
-}
 function updateChartSize2() {
 	var height = jQuery(window).height(); //获取窗体高度
-	height2 = jQuery("#nav-header").height()+jQuery("#bm-header").height()+jQuery("#roomTitle").height()+jQuery("#bm-footer").height()+jQuery("#quotasTitle").height()+3+10+40-0;
+	height2 = jQuery("#nav-header").height()+jQuery("#bm-header").height()+jQuery("#roomTitle").height()+jQuery("#bm-footer").height()+3+10+40-0;
 	height3 = jQuery("#nav-header").height()+jQuery("#bm-header").height()+jQuery("#content2_toolbar").height()+jQuery("#content1").height()+jQuery("#content1_toolbar").height()+16+'px';
 	if(height<750){
 		right_height = 452;
@@ -102,20 +95,20 @@ function opToolbar2(){
 	<div id="nav-header" class="nav-header">
 			
 		<div class="top-logo">
-			<img id="logo" src="/resources/images/logo.png"/>
+			<img id="logo" src="${path}/images/logo.png"/>
 		</div>
 		<ul class="nav navbar-nav top-menu">
 			<li class="title-four selected">
-				<a>首页</a>
+				<a style="line-height:26px;">首页</a>
 			</li>
 			<li class="title-four">
-				<a>工程</a>
+				<a style="line-height:26px;">工程</a>
 			</li>
 			<li class="title-four">
-				<a>定额</a>
+				<a style="line-height:26px;">定额</a>
 			</li>
 			<li class="title-four">
-				<a>+创建预算</a>
+				<a style="line-height:26px;">+创建预算</a>
 			</li>
 		</ul>
 		
@@ -130,7 +123,7 @@ function opToolbar2(){
 				</div>
 			</li>
 			<li class="account">
-				<a>欢迎你，No.9+</a>
+				<a style="padding-left:15px;padding-top:13px;padding-bottom:auto;">欢迎你，No.9+</a>
 			</li>
 		</ul>
 	</div>
@@ -178,8 +171,8 @@ function opToolbar2(){
 						      		</div>						    
 						        <div>
 						        	<a href="#">
-						        		<img id="icon-triangle" src="/resources/images/icon-triangle.png" onClick=""/>
-			        					<img style="display:none;" id="icon-triangle2" src="/resources/images/icon-triangle2.png" onClick=""/>
+						        		<img id="icon-triangle" src="${path}/images/icon-triangle.png" onClick=""/>
+			        					<img style="display:none;" id="icon-triangle2" src="${path}/images/icon-triangle2.png" onClick=""/>
 			        				</a>
 		        				</div>
 							      	<input type="hidden" id="toolbar1Status" value="show">
@@ -188,7 +181,7 @@ function opToolbar2(){
 							<div id="content1" class="content content-padding" style="height:250px;">
 								<div>
 									<div>
-										<a onClick="opProject()" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;装饰工程</a>
+										<a id="deractorRoom" onClick="opProject()" href="#" class="deractorRoom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;装饰工程</a>
 										<input type="hidden" id="status" value="show">
 									</div>
 								</div>
@@ -196,8 +189,8 @@ function opToolbar2(){
 								<div id="rooms">
 	        						<div ng-repeat="subproject in quotaDocument.subProjects"> 
 		        						<md-list ng-repeat="room in subproject.rooms">
-		        							<div style="margin-left:37px;margin-bottom:3px;">
-									            <a href="#" ng-click="chooseRoom(room)">{{room.name}}</a>
+		        							<div style="margin-left:49px;margin-bottom:3px;">
+									            <a href="{{'#' + room.id}}" ng-click="chooseRoom(room)">{{room.name}}</a>
 								          	</div>
 		            					</md-list>
 									</div>
@@ -216,8 +209,8 @@ function opToolbar2(){
 							      	</div>
 							    <div>
 						        	<a href="#">
-						        		<img id="icon-triangle3" src="/resources/images/icon-triangle.png" onClick=""/>
-			        					<img style="display:none;" id="icon-triangle4" src="/resources/images/icon-triangle2.png" onClick=""/>
+						        		<img id="icon-triangle3" src="${path}/images/icon-triangle.png" onClick=""/>
+			        					<img style="display:none;" id="icon-triangle4" src="${path}/images/icon-triangle2.png" onClick=""/>
 			        				</a>
 		        				</div>
 							    <input type="hidden" id="toolbar2Status" value="show">
@@ -298,35 +291,34 @@ function opToolbar2(){
 							<div ng-repeat="subproject in quotaDocument.subProjects">
 							
 								<section ng-repeat="room in subproject.rooms">
-							      <md-subheader class="md-primary">{{room.name}}</md-subheader>
-							      <md-divider></md-divider>
+							     <a id="{{room.id}}"><md-subheader class="md-primary md-room-theme" style="line-height: 0.3em;">{{room.name}}</md-subheader></a>
 							      <md-list layout="vertical">
 							        <md-item ng-repeat="item in room.billItems">
-						          		<md-item-content>
-								          	<div class="md-tile-content md-tile-first md-tile-large">
-								            	<h3>{{item.itemName}}</h3>
+						          		<md-item-content class="md-item-change">
+								          	<div class="md-tile-content md-tile-change md-tile-large ">
+								            	<h3 ng-Dblclick="deleteBillItem(room,item)">{{item.itemName}}</h3>
 								          	</div>
-								          	<div class="md-tile-content md-tile-small">
+								          	<div class="md-tile-content md-tile-change md-tile-small">
 								            	<h3>{{item.quantityUom}}</h3>
 								          	</div>
-								          	<div class="md-tile-content md-tile-small editCell_quantity">
+								          	<div class="md-tile-content md-tile-change md-tile-small editCell_quantity">
 								            	<div>{{item.quantity}}</div>
-								            	<input type="text" onBlur="editQuantity()" style="display:none;border:none;width:67px;"> 
+								            	<input type="text" style="text-align:center;display:none;border:none;width:67px;"> 
 								          	</div>
-								           	<div class="md-tile-content md-tile-small">
+								           	<div class="md-tile-content md-tile-change md-tile-small">
 								            	<h3>{{item.unitPrice}}</h3>
 								          	</div>
-								           	<div class="md-tile-content md-tile-medium">
+								           	<div class="md-tile-content md-tile-change md-tile-medium">
 								            	<h3>{{item.totalPrice}}</h3>
 								          	</div>
-								           	<div class="md-tile-content md-tile-large">
+								           	<div class="md-tile-content md-tile-change md-tile-large">
 								            	<h3>{{item.rulesDescription}}</h3>
 								          	</div>
-								           	<div class="md-tile-content md-tile-large">
+								           	<div class="md-tile-content md-tile-change md-tile-large">
 								            	<h3>{{item.processDescription}}</h3>
 								          	</div>
 								        </md-item-content>
-								        <md-divider></md-divider>
+								        <md-divider class="md-divider-color"></md-divider>
 							        </md-item>
 							      </md-list>
 							    </section>
@@ -358,7 +350,7 @@ function opToolbar2(){
 						          </div>
 						          <div class="md-tile-content md-tile-small editCell_quantity">
 						            <div>{{item.quantity}}</div>
-						            <input type="text" onBlur="editQuantity()" style="display:none;border:none;width:67px;"> 
+						            <input type="text" style="text-align:center;display:none;width:67px;"> 
 						          </div>
 						           <div class="md-tile-content md-tile-small">
 						            <h3>{{item.unitPrice}}</h3>
@@ -392,6 +384,7 @@ function opToolbar2(){
 							<md-button class="md-raised md-default">导出</md-button>
 							<md-button class="md-raised md-default">打印</md-button>
 							<md-button class="md-raised md-default">邮件发送</md-button>
+							<md-button ng-click="test()">test</md-button>
 						</div>
 						
 					</div>
@@ -422,8 +415,6 @@ function opToolbar2(){
 	-->
 
 </div>
-
-
 
 
 

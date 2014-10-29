@@ -35,7 +35,7 @@
         title="SaasBase"
         server="default-server"
         location="webapp/saasbase"
-        base-permission="OFBTOOLS,SAASBASE"
+        base-permission="OFBTOOLS"
         mount-point="/saasbase"/>
         
     <webapp name="resources"

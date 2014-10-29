@@ -2,7 +2,7 @@
 angular.module('saasApp', [
 //  'ngRoute',
 	'eheMaterial',
-//  'common.services',
+	'ehe.common.services',
 //  'ehe.dialog',
 //  'ehe.grid',
 //  'ehe.common.directives',
@@ -11,7 +11,7 @@ angular.module('saasApp', [
 //  'ehe.saas.directives',
 //  'ehe.saas.controllers'
 ])
-.controller('MainController', function($scope, $log, $timeout, $window) {
+.controller('MainController', function($scope, $log, $timeout, $window, $eheRequest) {
 //	$scope.$route = $route;
 //    $scope.$location = $location;
 //    $scope.$routeParams = $routeParams;
@@ -81,7 +81,8 @@ angular.module('saasApp', [
                     name: '主卧',
                     description: '',
                     billItems: [{                //清单项目
-                        id: '',
+                        id: 'B001',
+                        code: '',
                         itemName: '主卧墙面防潮',
                         quantity: '20',
                         quantityUomId: '',
@@ -91,48 +92,9 @@ angular.module('saasApp', [
                         rulesDescription: '无',   //计算规则
                         processDescription: '无', //工艺说明
                     },{
-                        id: '',
+                        id: 'B002',
+                        code: '',
                         itemName: '主卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
                         quantity: '10',
                         quantityUomId: '',
                         quantityUom: '个',
@@ -147,7 +109,8 @@ angular.module('saasApp', [
                     name: '客厅',
                     description: '',
                     billItems: [{                //清单项目
-                        id: '',
+                        id: 'B003',
+                        code: '',
                         itemName: '客厅墙面防潮',
                         quantity: '20',
                         quantityUomId: '',
@@ -157,7 +120,8 @@ angular.module('saasApp', [
                         rulesDescription: '无',   //计算规则
                         processDescription: '无', //工艺说明
                     },{
-                        id: '',
+                        id: 'B004',
+                        code: '',
                         itemName: '客厅楼梯加宽',
                         quantity: '10',
                         quantityUomId: '',
@@ -173,7 +137,8 @@ angular.module('saasApp', [
                     name: '次卧',
                     description: '',
                     billItems: [{                //清单项目
-                        id: '',
+                        id: 'B005',
+                        code: '',
                         itemName: '次卧墙面防潮',
                         quantity: '20',
                         quantityUomId: '',
@@ -183,47 +148,8 @@ angular.module('saasApp', [
                         rulesDescription: '无',   //计算规则
                         processDescription: '无', //工艺说明
                     },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    },{
-                        id: '',
+                        id: 'B006',
+                        code: '',
                         itemName: '次卧楼梯加宽',
                         quantity: '10',
                         quantityUomId: '',
@@ -254,29 +180,74 @@ angular.module('saasApp', [
     /**
      * 新增清单项目
      */
+    var itemId = 0;
     $scope.addBillItem = function(room, quota) {
-    	
+    	itemId++;
     	var item = {};
-    	item.id = '12124';
+    	item.id = 'B' + itemId;
     	item.itemName = quota.name;
-    	item.quantity ='0',
-    	item.quantityUom = '个',
-    	item.unitPrice ='0',
-    	item.totalPrice ='0',
-    	item.rulesDescription ='无',
-    	item.processDescription ='无',
+    	item.quantity ='0';
+    	item.quantityUom = '个';
+    	item.unitPrice ='0';
+    	item.totalPrice ='0';
+    	item.rulesDescription ='无';
+    	item.processDescription ='无';
      	room.billItems.push(item);
     	
     };
+
+    /**
+     * 新增room 目前currentSubProject未改
+     */
+    $scope.currentSubProject = $scope.quotaDocument.subProjects[0];
+    $scope.addRoom = function(pj) {
+    	var room = {};
+    	room.id = 'R004';
+    	room.type='room';
+    	room.name='厨房';
+    	room.description ='示例';
+    	pj.rooms.push(room);
+    };
     
-    $scope.deleteBillItem = function(item) {
-    	
+    jQuery.contextMenu({
+        selector: '.deractorRoom', 
+        zIndex: 50,
+        callback: function(key, options) {
+        	if(key=="add"){
+        		$scope.$apply(function() {
+        			$scope.addRoom($scope.currentSubProject);
+        		});
+        	}
+        },
+        items: {
+            "add": {name: "增加房间", icon: "edit"},
+        }
+	});
+    
+    
+    /**
+     * 删除清单项目
+     */
+    $scope.deleteBillItem = function(room,item) {    	
+    	room.billItems.pop(item);
     }
     
     $scope.updateBillItem = function(item) {
     	
     }
     
+    
+    $scope.test = function() {
+    	$eheRequest.post('/saasbm/control/getBmDocumentAjax', {
+    		docId: 123
+    	}).then(function(result) {
+    		
+    		alert(result.document);
+    		var aaa = "sad";
+    		
+    	});
+    	
+    };
     
 })
 

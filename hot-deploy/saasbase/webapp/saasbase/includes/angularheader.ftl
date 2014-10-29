@@ -13,6 +13,11 @@
 <#--jquery-->
 <script type="text/javascript" src="${path}/jquery/jquery-1.11.1.min.js"></script>
 
+<#-- contextMenu -->
+<script src="${path}/jQuery-contextMenu-master/src/jquery.contextMenu.js" type="text/javascript"></script>
+<link href="${path}/jQuery-contextMenu-master/src/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+<#-- end contextMenu -->
+
 <#--
 <script type="text/javascript">
 jQuery(function() {
@@ -39,6 +44,8 @@ jQuery(function() {
 
 <link rel="stylesheet" href="${path}/ehe/material/eheMaterial.css">
 <script type="text/javascript" src="${path}/ehe/material/eheMaterial.js"></script>
+<script type="text/javascript" src="${path}/ehe/common/commonServices.js"></script>
+
 
 <link href="${path}/ehe/saas/css/saasApp.css" rel="stylesheet">
 
@@ -56,9 +63,7 @@ jQuery(function() {
 <script type="text/javascript" src="${path}/jquery/jqueryUI/js/jquery.ui.datepicker-zh-CN.js"></script>
 -->
 <#-- jstree -->
-<#--
 <script type="text/javascript" language="javascript" src="${path}/jquery/jstree/jquery.jstree.js"></script> 
--->
 <#-- jqgrid -->
 <#--
 <script type="text/javascript" language="javascript" src="${path}/jquery/jqgrid/js/i18n/grid.locale-cn.js"></script> 

@@ -50,12 +50,16 @@ md-toolbar.md-default-theme {
 md-content.md-default-theme {
 	background-color: #ffffff;
 }
-
 .md-subheader.md-default-theme {
 	color: rgba(0, 0, 0, 0.54);
 	background-color: #ffffff;
 }
+.md-subheader.md-room-theme {
+	color: rgba(0, 0, 0, 0.54);
+	background-color: #e6e6e6;
+	border-bottom:1px solid grey;
+	height: 36px;
+}
 .md-subheader.md-default-theme.md-primary {
 	color: #03a9f4;
 }
-
