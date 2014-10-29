@@ -1,31 +1,5 @@
 <script type="text/javascript">
 	jQuery(function() {
- 		jQuery("#showEmployee").jstree({
-	        "core":{"initially_open":["eheCompany"]},//自动展开的节点
-	        "ui" : { "initially_select" : ["eheCompany"]},
-	        "plugins":["themes","json_data", "ui"],
-	        "json_data" : {
-	            "ajax" : {
-	            	"type": "POST",  
-	                "url" : "/eheoa/control/createEmployeeTreeAjax?companyId=eheCompany",
-	                "data" : function (n) {
-	                    return { id : n.attr ? n.attr("id") : "-1" };
-	                }
-	            },
-	            progressive_render:true
-	        },
-	        "themes":{
-	            "theme":"classic",
-	            "dots":true,
-	            "icons":false
-	        }
-	    }).bind("select_node.jstree", function (e, data) {//单击触发的事件 
-	    	jQuery("#contactListTabsDiv").show();
-	    	var id = data.rslt.obj.attr("id");
-	    	var personType = "EMPLOYEE";
-		    new Ajax.Updater("positionInfo", "/eheoa/control/contactList?selectedId="+id+"&personType={personType!''}", 
-		    		{evalScripts: true,asynchronous:false,onComplete: function(){	jQuery("#positionInfo").show();}});
-	    });
 });
 
 function selectQutas(){
@@ -164,6 +138,7 @@ function opToolbar(){
 						</div>
 						
 						<div class="panel whiteframe-z1">
+							
 							<div class="toolbar demo-toolbar">
 								<div class="toolbar-tools">
 							      <h3>
@@ -211,40 +186,74 @@ function opToolbar(){
 						
 					
 				</div>	
-				<div id="bm-table-view" class="panel whiteframe-z1" style="min-height: 300px;">
 					
-					<div class="content">
-						<table class="data-table">
-                       	    <thead>
-                                <tr>
-                                    <th>项目</th>        
-        							<th>单位</th>
-        							<th>工程量</th>
-        							<th>单价</th>
-        							<th>合计</th>
-        							<th>计量规则</th>
-        							<th>工艺说明</th>
-    							</tr>
-    						</thead>
-    							<tr ng-repeat="i in [1,2,3,4,5,6,7]">
-       								 <td>2222</td>        
-       								 <td>22222</td>
-        							 <td>22222</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-        							 <td>23333</td>
-   								 </tr>
-						</table>
-					</div>
+				<div id="bm-table-view" class="whiteframe-z1">
+					<md-toolbar class="md-theme-light">
+					    <h1 class="md-toolbar-tools">
+					      <span>Full Bleed</span>
+					    </h1>
+				  	</md-toolbar>
 					
-					<div>
-					
-					
-					</div>
+				  	<md-content style="height: 450px;">
+				  		
+					    <md-list>
+					      <md-item ng-repeat="item in messages">
+					        <md-item-content>
+					          <div class="md-tile-content">
+					            <h3>{{item.what}}</h3>
+					            <h4>{{item.who}}</h4>
+					            <p>
+					              {{item.notes}}
+					            </p>
+					          </div>
+					          <div class="md-tile-content">
+					            <h3>{{item.what}}</h3>
+					            <h4>{{item.who}}</h4>
+					            <p>
+					              {{item.notes}}
+					            </p>
+					          </div>
+					          <div class="md-tile-content">
+					            <h3>{{item.what}}</h3>
+					            <h4>{{item.who}}</h4>
+					            <p>
+					              {{item.notes}}
+					            </p>
+					          </div>
+					        </md-item-content>
+					        <md-divider ng-if="!$last"></md-divider>
+					      </md-item>
+					    </md-list>
+					    
+				  	</md-content>
+						
+					<#--
+					<table class="data-table">
+                   	    <thead>
+                            <tr>
+                                <th>项目</th>        
+    							<th>单位</th>
+    							<th>工程量</th>
+    							<th>单价</th>
+    							<th>合计</th>
+    							<th>计量规则</th>
+    							<th>工艺说明</th>
+							</tr>
+						</thead>
+							<tr ng-repeat="i in [1,2,3,4,5,6,7]">
+   								 <td>2222</td>        
+   								 <td>22222</td>
+    							 <td>22222</td>
+    							 <td>23333</td>
+    							 <td>23333</td>
+    							 <td>23333</td>
+    							 <td>23333</td>
+							 </tr>
+					</table>
+					-->
 					
 					<div id="bm-footer">
-				
+			
 						<div class="bottom-toolbar">
 							<md-button class="md-raised md-primary">保存</md-button>
 							<md-button class="md-raised md-default">存为模板</md-button>
@@ -255,9 +264,13 @@ function opToolbar(){
 						</div>
 						
 					</div>
+					
+					
+				</div>
+					
+					
 									
 								
-				</div> <#-- end of table-view -->
 			
 			</div>	<#-- end of bm-body -->
 			

@@ -43,5 +43,12 @@ md-button.md-default-theme.md-raised.md-warn:hover:not([disabled]), md-button.md
 }
 
 
+md-toolbar.md-default-theme {
+	background-color: #03a9f4;
+	color: white;
+}
+md-content.md-default-theme {
+	background-color: #ffffff;
+}
 
 
