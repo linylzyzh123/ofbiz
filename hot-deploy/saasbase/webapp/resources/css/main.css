@@ -344,18 +344,18 @@ shadow
 /** md **/
 .md-tile-small{
 	width: 80px;
-	border-right:1px solid black;
+	/*border-right:1px solid black;*/
 }
 .md-tile-medium{
 	width: 120px;
-	border-right:1px solid black;
+	/*border-right:1px solid black;*/
 }
 .md-tile-large{
 	width: 200px;
-	border-right:1px solid black;
+	/*border-right:1px solid black;*/
 }
 .md-tile-first{
-	border-left:1px solid black;
+	/*border-left:1px solid black;*/
 }
 
 .md-tile-th{

@@ -266,9 +266,7 @@ function opToolbar2(){
 					
 				<div id="bm-table-view" class="whiteframe-z1">
 					
-					<#--
-				    <md-divider></md-divider>
-					<md-content id="roomTitle">
+					<md-content id="roomTitle" style="z-index:2;">
 					    <md-item-content class="md-tile-th">
 					    	<div class="md-tile-content md-tile-first md-tile-large">
 				        		<h2>项目</h2>
@@ -293,15 +291,15 @@ function opToolbar2(){
 							</div>
 						</md-item-content>
 					</md-content>
-					-->
 					
-					<div>
+					<div style="position:relative;">
 						<md-content id="bm-table-content">
 							
 							<div ng-repeat="subproject in quotaDocument.subProjects">
 							
 								<section ng-repeat="room in subproject.rooms">
 							      <md-subheader class="md-primary">{{room.name}}</md-subheader>
+							      <md-divider></md-divider>
 							      <md-list layout="vertical">
 							        <md-item ng-repeat="item in room.billItems">
 						          		<md-item-content>
@@ -328,7 +326,7 @@ function opToolbar2(){
 								            	<h3>{{item.processDescription}}</h3>
 								          	</div>
 								        </md-item-content>
-								        <md-divider ng-if="!$last"></md-divider>
+								        <md-divider></md-divider>
 							        </md-item>
 							      </md-list>
 							    </section>

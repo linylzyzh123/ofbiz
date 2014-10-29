@@ -236,7 +236,7 @@ md-item-content {
  * The center content tile for a list item.
  */
 .md-tile-content {
-  padding: 8px;
+  padding: 16px 0;
   text-overflow: ellipsis; 
   text-align: center;}
   .md-tile-content h2 {
