@@ -44,62 +44,238 @@ angular.module('saasApp', [
     	alert($scope.dingeku.cailiao[0].name);
     }
     
-    $scope.messages = [
-        {
-          face : '/img/list/60.jpeg',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        },
-        {
-          face : '/img/list/60.jpeg',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        },
-        {
-          face : '/img/list/60.jpeg',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        },
-        {
-          face : '/img/list/60.jpeg',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        },
-        {
-          face : '/img/list/60.jpeg',
-          what: 'Brunch this weekend?',
-          who: 'Min Li Chan',
-          when: '3:08PM',
-          notes: " I'll be in your neighborhood doing errands"
-        },
-        {
-            face : '/img/list/60.jpeg',
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-          },
-	      {
-	          face : '/img/list/60.jpeg',
-	          what: 'Brunch this weekend?',
-	          who: 'Min Li Chan',
-	          when: '3:08PM',
-	          notes: " I'll be in your neighborhood doing errands"
-	        }
-    ];
     
+    $scope.quotaDocument={
+        quotaHead: {
+            docId: '123124125',
+            orgName: '东易日盛',
+            quotaName: '工程报价单',
+            quotaType: '工程预算',
+            projectCode: '1161113120060',
+            projectName: '无锡市太湖',
+            revisionCode: '1.0.1',
+            createdBy: '',
+            createdTimestamp: '',
+            updatedBy: '',
+            updatedTimestamp: '',
+            status: '草稿',
+
+            approvedBy: '',
+            approvedTimestamp: '',
+            designerSignature: '',
+            accountSignature: '',
+            approverSignature: '',
+
+            uom: '',
+            totalPrice: '12312',
+        },
+
+        subProjects: [{                           
+            id: '',
+            projectType: 'ROOMS',                   //ROOMS、CIVIL_WORKS、OTHER_PROJECT
+            name: '房间',                       //房间、土建、其他
+            description: '',
+            rooms: [{                            //部位
+                    id: 'R001',
+                    type: 'room',
+                    name: '主卧',
+                    description: '',
+                    billItems: [{                //清单项目
+                        id: '',
+                        itemName: '主卧墙面防潮',
+                        quantity: '20',
+                        quantityUomId: '',
+                        quantityUom: '平方米',
+                        unitPrice: '100',
+                        totalPrice: '2000',
+                        rulesDescription: '无',   //计算规则
+                        processDescription: '无', //工艺说明
+                    },{
+                        id: '',
+                        itemName: '主卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    }]
+                },{
+                    id: 'R002',
+                    type: 'room',
+                    name: '客厅',
+                    description: '',
+                    billItems: [{                //清单项目
+                        id: '',
+                        itemName: '客厅墙面防潮',
+                        quantity: '20',
+                        quantityUomId: '',
+                        quantityUom: '平方米',
+                        unitPrice: '100',
+                        totalPrice: '2000',
+                        rulesDescription: '无',   //计算规则
+                        processDescription: '无', //工艺说明
+                    },{
+                        id: '',
+                        itemName: '客厅楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    }]
+                },{
+                    id: 'R003',
+                    type: 'room',
+                    name: '次卧',
+                    description: '',
+                    billItems: [{                //清单项目
+                        id: '',
+                        itemName: '次卧墙面防潮',
+                        quantity: '20',
+                        quantityUomId: '',
+                        quantityUom: '平方米',
+                        unitPrice: '100',
+                        totalPrice: '2000',
+                        rulesDescription: '无',   //计算规则
+                        processDescription: '无', //工艺说明
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    },{
+                        id: '',
+                        itemName: '次卧楼梯加宽',
+                        quantity: '10',
+                        quantityUomId: '',
+                        quantityUom: '个',
+                        unitPrice: '50',
+                        totalPrice: '1000',
+                        rulesDescription: '2333',           
+                        processDescription: '2333',         
+                    }]
+                }]
+    	}],
+
+        rateSet: {                    //费率设置
+            profitRate: 0.5,        //利润率
+            managementFee: 12,        //管理费
+            taxRate: 0.3,                //税率
+        },
+
+
+    };
     
+    $scope.currentRoom = $scope.quotaDocument.subProjects[0].rooms[0];
     
+    $scope.chooseRoom = function(room) {
+    	$scope.currentRoom = room;
+    }
     
+    /**
+     * 新增清单项目
+     */
+    $scope.addBillItem = function(room, quota) {
+    	
+    	var item = {};
+    	item.id = '12124';
+    	item.itemName = quota.name;
+    	item.quantity ='0',
+    	item.quantityUom = '个',
+    	item.unitPrice ='0',
+    	item.totalPrice ='0',
+    	item.rulesDescription ='无',
+    	item.processDescription ='无',
+     	room.billItems.push(item);
+    	
+    };
     
+    $scope.deleteBillItem = function(item) {
+    	
+    }
+    
+    $scope.updateBillItem = function(item) {
+    	
+    }
     
     
 })

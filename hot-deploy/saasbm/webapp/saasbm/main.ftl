@@ -1,19 +1,43 @@
 <script type="text/javascript">
-	jQuery(function() {
+jQuery(function() {
+		jQuery(document).ready(function(){
+			updateChartSize2();
+			jQuery(window).resize(updateChartSize2);
+		});	
+		jQuery(".editCell_quantity").click(function(event){
+			
+			var text = jQuery(event.currentTarget).children().get(0);
+			jQuery(text).hide().next().show();
+		});
 });
 
-function selectQutas(){
-     var qutasType = jQuery("#qutasType").val();
-		if("001"==qutasType){
-			alert("001");
-		}else if("002"==qutasType){
-			alert("002");
-		}else if("003"==qutasType){
-			alert("003");
-		}else{
-			alert(qutasType);
-		}
+function editQuantity(event) {
+	var text = jQuery(event.currentTarget).children().get(0);
+	var quatityValue = jQuery(text).next().val();
+	jQuery(text).text(quatityValue);
+	alert(quatityValue);
+	jQuery(text).hide().next().show();
 }
+function updateChartSize2() {
+	var height = jQuery(window).height(); //获取窗体高度
+	height2 = jQuery("#nav-header").height()+jQuery("#bm-header").height()+jQuery("#roomTitle").height()+jQuery("#bm-footer").height()+jQuery("#quotasTitle").height()+3+10+40-0;
+	height3 = jQuery("#nav-header").height()+jQuery("#bm-header").height()+jQuery("#content2_toolbar").height()+jQuery("#content1").height()+jQuery("#content1_toolbar").height()+16+'px';
+	if(height<750){
+		right_height = 452;
+		left_height = 250;
+	}else if(height>950){
+		right_height = 630;
+		left_height = 427;
+	}else{
+		right_height = height-height2;
+		left_height = height-526;
+	}
+	
+	//如果是页面内容高宽可以将window替换为document即可
+	//动态修改容器大小
+	jQuery("#bm-table-content").height(right_height);
+	jQuery("#content2").height(left_height);
+}	
 
 function opProject(){
 	var status = jQuery("#status").val();
@@ -25,21 +49,54 @@ function opProject(){
 		jQuery("#status").val("hide");
 	}
 }
-function opToolbar(){
+function opToolbar1(){
     var status = jQuery("#toolbar1Status").val();
     if(status=="hide"){
 		jQuery("#content1").show();
         jQuery("#content2").attr("style","height:250px;");
         jQuery("#toolbar1Status").val("show");
+        jQuery("#icon-triangle").show();
+        jQuery("#icon-triangle2").hide();
 	}else if(status=="show"){
 		jQuery("#content1").hide();
-        jQuery("#content2").attr("style","height:516px;");
+        jQuery("#content2").attr("style","height:500px;");
         jQuery("#toolbar1Status").val("hide");
+        jQuery("#icon-triangle2").show();
+        jQuery("#icon-triangle").hide();
+	}
+}
+function opToolbar2(){
+    var status = jQuery("#toolbar2Status").val();
+    var status1 = jQuery("#toolbar1Status").val();
+    if(status=="hide"){
+    	if(status1=="show"){
+    		jQuery("#content1").hide();
+    		jQuery("#toolbar1Status").val("hide");
+	        jQuery("#icon-triangle2").show();
+	        jQuery("#icon-triangle").hide();
+    	}
+		jQuery("#content2").show();
+        jQuery("#content1").attr("style","height:250px;");
+        jQuery("#toolbar2Status").val("show");
+        jQuery("#icon-triangle3").show();
+        jQuery("#icon-triangle4").hide();
+	}else if(status=="show"){
+		if(status1=="hide"){
+    		jQuery("#content1").show();
+    		jQuery("#toolbar1Status").val("show");
+	        jQuery("#icon-triangle2").hide();
+	        jQuery("#icon-triangle").show();
+    	}
+		jQuery("#content2").hide();
+        jQuery("#content1").attr("style","height:500px;");
+        jQuery("#toolbar2Status").val("hide");
+        jQuery("#icon-triangle4").show();
+        jQuery("#icon-triangle3").hide();
 	}
 }
 </script>
 
-<div class="container">
+<div id="container" class="container">
 
 	
 	<div id="nav-header" class="nav-header">
@@ -113,26 +170,37 @@ function opToolbar(){
 						<div class="panel whiteframe-z1">
 							
 							<div class="toolbar demo-toolbar">
-								<div class="toolbar-tools">
-							      <h3>
-							        <span>工程部位</span>
-							      </h3>	
-							      <div style="width:110px;"></div>						    
-							      <div><md-button class="md-raised md-primary" onClick="opToolbar()"></md-button></div>
-							      <input type="hidden" id="toolbar1Status" value="show">
-							    </div>
-							</div>
+								<div id="content1_toolbar" class="toolbar-tools">
+									<div style="width:182px;">
+								      <h3>
+								        <span>工程部位</span>
+								      </h3>	
+						      		</div>						    
+						        <div>
+						        	<a href="#">
+						        		<img id="icon-triangle" src="/resources/images/icon-triangle.png" onClick=""/>
+			        					<img style="display:none;" id="icon-triangle2" src="/resources/images/icon-triangle2.png" onClick=""/>
+			        				</a>
+		        				</div>
+							      	<input type="hidden" id="toolbar1Status" value="show">
+						    </div>
+						</div>
 							<div id="content1" class="content content-padding" style="height:250px;">
-								<div><pre><span><a onClick="opProject()" href="#">   装饰工程</a></span></pre></div>
-								<input type="hidden" id="status" value="show">
+								<div>
+									<div>
+										<a onClick="opProject()" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;装饰工程</a>
+										<input type="hidden" id="status" value="show">
+									</div>
+								</div>
+								
 								<div id="rooms">
-	        						<ul>
-	            						<li><pre><a href="#">       客厅</a><span>（3.5*3.5*2.8）</span></pre></li>
-	            						<li><pre><a href="#">       主卧</a><span>（4*3.5*2.8）</span></pre></li>
-	            						<li><pre><a href="#">       次卧</a><span>（3.2*3.2*2.8）</span></pre></li>
-	           						 	<li><pre><a href="#">       餐厅</a><span>（3*3.2*2.8）</span></pre></li>
-	            						<li><pre><a href="#">       卫生间</a><span>（2.5*3*2.6）</span></pre></li>
-									</ul>
+	        						<div ng-repeat="subproject in quotaDocument.subProjects"> 
+		        						<md-list ng-repeat="room in subproject.rooms">
+		        							<div style="margin-left:37px;margin-bottom:3px;">
+									            <a href="#" ng-click="chooseRoom(room)">{{room.name}}</a>
+								          	</div>
+		            					</md-list>
+									</div>
 								</div>	
 							</div>
 						</div>
@@ -140,10 +208,19 @@ function opToolbar(){
 						<div class="panel whiteframe-z1">
 							
 							<div class="toolbar demo-toolbar">
-								<div class="toolbar-tools">
-							      <h3>
-							        <span>定额</span>
-							      </h3>
+								<div id="content2_toolbar" class="toolbar-tools">
+									<div style="width:182px;">
+								      <h3>
+								        <span>定额</span>
+								      </h3>
+							      	</div>
+							    <div>
+						        	<a href="#">
+						        		<img id="icon-triangle3" src="/resources/images/icon-triangle.png" onClick=""/>
+			        					<img style="display:none;" id="icon-triangle4" src="/resources/images/icon-triangle2.png" onClick=""/>
+			        				</a>
+		        				</div>
+							    <input type="hidden" id="toolbar2Status" value="show">
 							    </div>
 							</div>
 							<div id="content2" class="content content-padding" style="height:250px;">
@@ -165,9 +242,9 @@ function opToolbar(){
 								</div>
 								<div>
 									<div >
-										<table id="searchTextResults" border="0">
-										  <tr ng-repeat="quota in quotas | filter:searchText">
-										    <td>{{quota.name}}</td>
+										<table class="data-table" id="searchTextResults" style="border:none;margin-bottom:0px;align:left;">
+										  <tr ng-repeat="quota in quotas | filter:searchText" style="align:left;border:none;">
+										    <td style="border:none;font-size:12px;align:left;" ng-Dblclick="addBillItem(currentRoom, quota)">{{quota.name}}</td>
 										  </tr>
 										</table>
 										<div ng-init="quotas = [
@@ -188,68 +265,124 @@ function opToolbar(){
 				</div>	
 					
 				<div id="bm-table-view" class="whiteframe-z1">
-					<md-toolbar class="md-theme-light">
-					    <h1 class="md-toolbar-tools">
-					      <span>Full Bleed</span>
+					
+					<#--
+				    <md-divider></md-divider>
+					<md-content id="roomTitle">
+					    <md-item-content class="md-tile-th">
+					    	<div class="md-tile-content md-tile-first md-tile-large">
+				        		<h2>项目</h2>
+							</div>
+							<div class="md-tile-content md-tile-small">
+				        		<h2>单位</h2>
+							</div>
+							<div class="md-tile-content md-tile-small">
+				        		<h2>工程量</h2>
+							</div>
+							<div class="md-tile-content md-tile-small">
+				        		<h2>单价</h2>
+							</div>
+							<div class="md-tile-content md-tile-medium">
+				        		<h2>合计</h2>
+							</div>
+							<div class="md-tile-content md-tile-large">
+				        		<h2>计量规则</h2>
+							</div>
+							<div class="md-tile-content md-tile-large">
+				        		<h2>工艺说明</h2>
+							</div>
+						</md-item-content>
+					</md-content>
+					-->
+					
+					<div>
+						<md-content id="bm-table-content">
+							
+							<div ng-repeat="subproject in quotaDocument.subProjects">
+							
+								<section ng-repeat="room in subproject.rooms">
+							      <md-subheader class="md-primary">{{room.name}}</md-subheader>
+							      <md-list layout="vertical">
+							        <md-item ng-repeat="item in room.billItems">
+						          		<md-item-content>
+								          	<div class="md-tile-content md-tile-first md-tile-large">
+								            	<h3>{{item.itemName}}</h3>
+								          	</div>
+								          	<div class="md-tile-content md-tile-small">
+								            	<h3>{{item.quantityUom}}</h3>
+								          	</div>
+								          	<div class="md-tile-content md-tile-small editCell_quantity">
+								            	<div>{{item.quantity}}</div>
+								            	<input type="text" onBlur="editQuantity()" style="display:none;border:none;width:67px;"> 
+								          	</div>
+								           	<div class="md-tile-content md-tile-small">
+								            	<h3>{{item.unitPrice}}</h3>
+								          	</div>
+								           	<div class="md-tile-content md-tile-medium">
+								            	<h3>{{item.totalPrice}}</h3>
+								          	</div>
+								           	<div class="md-tile-content md-tile-large">
+								            	<h3>{{item.rulesDescription}}</h3>
+								          	</div>
+								           	<div class="md-tile-content md-tile-large">
+								            	<h3>{{item.processDescription}}</h3>
+								          	</div>
+								        </md-item-content>
+								        <md-divider ng-if="!$last"></md-divider>
+							        </md-item>
+							      </md-list>
+							    </section>
+							
+							</div>
+						</md-content>
+					
+					</div>
+					
+					
+					<#--
+					
+					<md-toolbar id="quotasTitle" class="md-theme-light">
+					    <h1 class="md-toolbar-tools md-tile-room">
+					      <span>{{currentRoom.name}}</span>
 					    </h1>
 				  	</md-toolbar>
-					
-				  	<md-content style="height: 450px;">
-				  		
-					    <md-list>
-					      <md-item ng-repeat="item in messages">
-					        <md-item-content>
-					          <div class="md-tile-content">
-					            <h3>{{item.what}}</h3>
-					            <h4>{{item.who}}</h4>
-					            <p>
-					              {{item.notes}}
-					            </p>
-					          </div>
-					          <div class="md-tile-content">
-					            <h3>{{item.what}}</h3>
-					            <h4>{{item.who}}</h4>
-					            <p>
-					              {{item.notes}}
-					            </p>
-					          </div>
-					          <div class="md-tile-content">
-					            <h3>{{item.what}}</h3>
-					            <h4>{{item.who}}</h4>
-					            <p>
-					              {{item.notes}}
-					            </p>
-					          </div>
-					        </md-item-content>
-					        <md-divider ng-if="!$last"></md-divider>
-					      </md-item>
-					    </md-list>
+				  					
+				  	<md-content id="bm-table-content" style="height:450px;">			  		
+				  		<div ng-repeat="subproject in quotaDocument.subProjects">  		    
+				  			<md-list ng-repeat="room in subproject.rooms">
+						      <md-item ng-repeat="item in room.billItems">
+						        <md-item-content>
+						          <div class="md-tile-content md-tile-first md-tile-large">
+						            <h3>{{item.itemName}}</h3>
+						          </div>
+						          <div class="md-tile-content md-tile-small">
+						            <h3>{{item.quantityUom}}</h3>
+						          </div>
+						          <div class="md-tile-content md-tile-small editCell_quantity">
+						            <div>{{item.quantity}}</div>
+						            <input type="text" onBlur="editQuantity()" style="display:none;border:none;width:67px;"> 
+						          </div>
+						           <div class="md-tile-content md-tile-small">
+						            <h3>{{item.unitPrice}}</h3>
+						          </div>
+						           <div class="md-tile-content md-tile-medium">
+						            <h3>{{item.totalPrice}}</h3>
+						          </div>
+						           <div class="md-tile-content md-tile-large">
+						            <h3>{{item.rulesDescription}}</h3>
+						          </div>
+						           <div class="md-tile-content md-tile-large">
+						            <h3>{{item.processDescription}}</h3>
+						          </div>
+						        </md-item-content>
+						        <md-divider></md-divider>
+						      </md-item>					      
+						    </md-list>
+				  		</div>
 					    
 				  	</md-content>
 						
-					<#--
-					<table class="data-table">
-                   	    <thead>
-                            <tr>
-                                <th>项目</th>        
-    							<th>单位</th>
-    							<th>工程量</th>
-    							<th>单价</th>
-    							<th>合计</th>
-    							<th>计量规则</th>
-    							<th>工艺说明</th>
-							</tr>
-						</thead>
-							<tr ng-repeat="i in [1,2,3,4,5,6,7]">
-   								 <td>2222</td>        
-   								 <td>22222</td>
-    							 <td>22222</td>
-    							 <td>23333</td>
-    							 <td>23333</td>
-    							 <td>23333</td>
-    							 <td>23333</td>
-							 </tr>
-					</table>
+					
 					-->
 					
 					<div id="bm-footer">
@@ -273,6 +406,8 @@ function opToolbar(){
 								
 			
 			</div>	<#-- end of bm-body -->
+			
+			
 			
 			
 			
