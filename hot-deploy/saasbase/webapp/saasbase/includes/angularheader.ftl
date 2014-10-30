@@ -52,6 +52,7 @@ jQuery(function() {
 
 <script type="text/javascript" src="${path}/ehe/saas/js/saasCtrl.js"></script>
 <script type="text/javascript" src="${path}/ehe/saas/js/saasDirectives.js"></script>
+<script type="text/javascript" src="${path}/ehe/saas/js/saasServices.js"></script>
 <script type="text/javascript" src="${path}/ehe/saas/js/saasApp.js"></script>
 
 

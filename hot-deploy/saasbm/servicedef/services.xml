@@ -30,13 +30,12 @@
 		<attribute name="docId" mode="IN" type="String" optional="true"></attribute>
 		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
 	</service>
-	<service name="ehebm.createBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="createBmDocument">
-		<description>删除预算书</description>
-		<attribute name="docId" mode="IN" type="String" optional="true"></attribute>
-	</service>
 	<service name="ehebm.searchQuota" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="searchQuota">
 		<description>定额搜索</description>
-		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="keyWord" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="quotaStore" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="categoryId" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="quotaList" mode="OUT" type="String" optional="true"></attribute>
 	</service>
 	
     

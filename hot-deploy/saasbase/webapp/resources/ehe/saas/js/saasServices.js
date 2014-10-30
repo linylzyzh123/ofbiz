@@ -1,4 +1,4 @@
-var bmModule = angular.module('ehe.saas.bm.services', []);
+var bmModule = angular.module('ehe.saas.bm.services', ['ehe.common.services']);
 
 
 
@@ -24,7 +24,7 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 		
 		this.clazz = 'BmDocument';
 		
-		this.id = options.id || $idGenerator.genId();
+		this.id = docId || $idGenerator.genId();
 		
 		this.subProjects = [];
 		
@@ -40,6 +40,8 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 		},
 		load: function(docId) {
 			
+			var $this = this;
+			
 			$eheRequest.post('/saasbm/control/getBmDocumentAjax', {
 	    		docId: docId
 	    	}).then(function(result) {
@@ -48,9 +50,7 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 	    			
 					var qd = result.document;
 	    			
-					this.quotaHead = qd.quotaHead;
-					
-					var $this = this;
+					$this.quotaHead = qd.quotaHead;
 					
 					angular.forEach(qd.subProjects, function(subPrj) {
 						$this.addSubProject(subPrj);
@@ -70,41 +70,11 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 			/**
 		     * 创建预算书
 		     */
-//		    function createBmDoc() {
-//		    	
-//		    	$eheRequest.post('/saasbm/control/createBmDocumentAjax', {
-//
-//		    	}).then(function(result) {
-//		    		
-//		    		if(result && result.document && result.document.quotaHead) {
-//		    			
-//		    			bmDocument = result.document;
-//		    			
-//		    		}
-//		    		
-//		    	});
-//		    	
-//		    };
-//			
-//			
-//			/**
-//		     * 更新预算书
-//		     */
-//		    function updateBmDoc() {
-//		    	
-//		    	$eheRequest.post('/saasbm/control/updateBmDocumentAjax', {
-//		    		docId: docId
-//		    	}).then(function(result) {
-//		    		
-//		    		if(result && result.document && result.document.quotaHead) {
-//		    			
-//		    			bmDocument = result.document;
-//		    			
-//		    		}
-//		    		
-//		    	});
-//		    	
-//		    };
+//			if(isNew) {
+//				createBmDocumentAjax
+//			}else{
+//				updateBmDocumentAjax
+//			}
 			
 		},
 		remove: function() {
@@ -127,6 +97,7 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 					break;
 				}
 			}
+			//TODO confirm
 			
 		}
 		
@@ -211,6 +182,7 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 					break;
 				}
 			}
+			//TODO confirm
 			
 		}
 	});
@@ -384,11 +356,7 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 	function getBmDocument(docId) {
 		
 		if(!bmDocument) {
-			
 			bmDocument = new BmDocument(docId);
-			
-			bmDocument.load(docId);
-			
 		}
 		
 		return bmDocument;
@@ -408,19 +376,58 @@ bmModule.factory('$bmDocument', ['$idGenerator', '$eheRequest', function ($idGen
 /**
  * 定额
  */
-//bmModule.factory('$quotas', ['$q', '$rootScope', '$http', function ($q, $scope, $http) {
+bmModule.factory('$quotas', ['$eheRequest', function ($eheRequest) {
+
+//	### 定额分类
+//	* 基础工程
+//		* 水电
+//		* 木工
+//		* 瓦工
+//		* 油漆工
+//		* 外包
+//	* 主材
 //
 //
 //
-//
-//
-//
-//		
-//		return {
-//			post: post
-//	  	};
-//  
-//}]);
+//	### 定额库（工艺类别选择）
+//	* 经济
+//	* 常规
+//	* 豪宅
+//	...
+	
+
+	function searchQuota(keyWord, ) {
+		
+		$eheRequest.post('/saasbm/control/searchQuotaAjax', {
+			keyWord: keyWord,
+			quotaStore: quotaStore,
+			categoryId: categoryId
+    	}).then(function(result) {
+    		
+    		if(result && result.document && result.document.quotaHead) {
+    			
+				var qd = result.document;
+    			
+				$this.quotaHead = qd.quotaHead;
+				
+				angular.forEach(qd.subProjects, function(subPrj) {
+					$this.addSubProject(subPrj);
+				});
+				
+				
+    		}
+    		
+    	});
+		
+	}
+
+
+		
+	return {
+		searchQuota: searchQuota
+  	};
+  
+}]);
 
 
 

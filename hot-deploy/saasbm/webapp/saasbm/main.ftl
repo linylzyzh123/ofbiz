@@ -247,7 +247,7 @@ function opToolbar2(){
 									<div id="searchTextResults" style="margin-bottom:0px;align:left;">
 									  <div ng-repeat="quota in quotas | filter:searchText" >
 									    <div style="font-size:12px;margin-bottom:5px;margin-left:21px;">
-									    	<span ng-Dblclick="addBillItem(currentRoom, quota)">{{quota.name}}</span>
+									    	<span ng-dblclick="addBillItem(currentRoom, quota)">{{quota.name}}</span>
 									    </div>
 									  </div>
 									</div>
@@ -349,51 +349,6 @@ function opToolbar2(){
 					</div>
 					
 					
-					<#--
-					
-					<md-toolbar id="quotasTitle" class="md-theme-light">
-					    <h1 class="md-toolbar-tools md-tile-room">
-					      <span>{{currentRoom.name}}</span>
-					    </h1>
-				  	</md-toolbar>
-				  					
-				  	<md-content id="bm-table-content" style="height:450px;">			  		
-				  		<div ng-repeat="subproject in quotaDocument.subProjects">  		    
-				  			<md-list ng-repeat="room in subproject.rooms">
-						      <md-item ng-repeat="item in room.billItems">
-						        <md-item-content>
-						          <div class="md-tile-content md-tile-first md-tile-large">
-						            <h3>{{item.name}}</h3>
-						          </div>
-						          <div class="md-tile-content md-tile-small">
-						            <h3>{{item.quantityUom}}</h3>
-						          </div>
-						          <div class="md-tile-content md-tile-small editCell_quantity">
-						            <div>{{item.quantity}}</div>
-						            <input type="text" style="text-align:center;display:none;width:67px;"> 
-						          </div>
-						           <div class="md-tile-content md-tile-small">
-						            <h3>{{item.unitPrice}}</h3>
-						          </div>
-						           <div class="md-tile-content md-tile-medium">
-						            <h3>{{item.totalPrice}}</h3>
-						          </div>
-						           <div class="md-tile-content md-tile-large">
-						            <h3>{{item.rulesDescription}}</h3>
-						          </div>
-						           <div class="md-tile-content md-tile-large">
-						            <h3>{{item.processDescription}}</h3>
-						          </div>
-						        </md-item-content>
-						        <md-divider></md-divider>
-						      </md-item>					      
-						    </md-list>
-				  		</div>
-					    
-				  	</md-content>
-						
-					
-					-->
 					
 					<div id="bm-footer">
 			

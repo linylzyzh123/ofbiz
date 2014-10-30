@@ -6,19 +6,22 @@ angular.module('saasApp', [
 //  'ehe.dialog',
 //  'ehe.grid',
 	'ehe.common.services',
+	
 //  'ehe.common.directives',
 //  'ehe.saas.filters',
-//  'ehe.saas.bm.services',
+	'ehe.saas.bm.services',
 //  'ehe.saas.directives',
 //  'ehe.saas.controllers'
 ])
-.controller('MainController', function($scope, $log, $timeout, $window, $eheRequest) {
+.controller('MainController', function($scope, $log, $timeout, $window, $eheRequest, $bmDocument, $idGenerator) {
 //	$scope.$route = $route;
 //    $scope.$location = $location;
 //    $scope.$routeParams = $routeParams;
     
     $scope.angular = angular;
     $scope.$window = $window;
+    
+    $scope.quotaDocument = $bmDocument.getBmDocument(123);
     
     
     //定额类别
@@ -42,10 +45,6 @@ angular.module('saasApp', [
     
     
     
-    $scope.quotaDocument = {
-		quotaHead: {},
-		subProjects: []
-    };
     
 //    $scope.currentRoom = $scope.quotaDocument.subProjects[0].rooms[0];
     
@@ -124,23 +123,6 @@ angular.module('saasApp', [
     	
     }
     
-    /**
-     * 读取预算书
-     */
-    $scope.loadBmDoc = function() {
-    	$eheRequest.post('/saasbm/control/getBmDocumentAjax', {
-    		docId: 123
-    	}).then(function(result) {
-    		
-    		if(result && result.document && result.document.quotaHead) {
-    			
-				$scope.quotaDocument = result.document;
-    			
-    		}
-    		
-    	});
-    	
-    };
     
     /**
      * 保存预算书
@@ -157,71 +139,6 @@ angular.module('saasApp', [
     };
     
     
-    
-    $scope.loadBmDoc();
-    
-    
-    
-    var BillItem = function(options) {
-		
-		this.clazz = 'BillItem';
-		
-		this.id = options.id || $idGenerator.genId();
-		
-		this.products = [];
-		
-		this.init(options);
-		
-	};
-    
-	BillItem.prototype = angular.extend(BillItem.prototype, {
-		
-		getJsonObject: function() {
-			var jsonObj = {};
-			
-			var $this = this;
-			angular.forEach($this, function(value, key) {
-				
-				
-				if(!angular.isFunction(value) && key != 'clazz' && key != 'id' && key != 'products') {
-					$this[key] = value;
-				}
-				
-				
-			});
-		},
-		init: function(options) {
-			
-			this.update(options);
-		},
-		update: function(options) {
-			var $this = this;
-			angular.forEach(options, function(value, key) {
-				$this[key] = value;
-			});
-		},
-		remove: function() {
-			
-		},
-		addProduct: function(options) {
-			
-		},
-		deleteProduct: function(product) {
-			
-		}
-	});
-	
-    $scope.test = function() {
-    	
-    	
-    	var aaa = new BillItem({
-    		id: 1231241,
-    		aa: 111,
-    		bb: 222,
-    		cc: 333
-    	});
-    	aaa.getJsonObject();
-    }
     
     
     $timeout(function() {

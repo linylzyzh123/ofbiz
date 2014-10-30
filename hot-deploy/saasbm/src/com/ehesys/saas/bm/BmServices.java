@@ -70,7 +70,78 @@ public class BmServices {
         return result;
     }
 	
+    
+    
+    /**
+	 * 创建预算文档
+	 * @param ctx
+	 * @param context
+	 * @return
+	 */
+    public static Map<String, Object> createBmDocument(DispatchContext ctx, Map<String, ?> context) {
+    	
+    	Map<String, Object> result = ServiceUtil.returnSuccess();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        
+		
+        return result;
+    }
+    
+    
+
+    /**
+	 * 更新预算文档
+	 * @param ctx
+	 * @param context
+	 * @return
+	 */
+    public static Map<String, Object> updateBmDocument(DispatchContext ctx, Map<String, ?> context) {
+    	
+    	Map<String, Object> result = ServiceUtil.returnSuccess();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        
+		
+        return result;
+    }
 	
-	
+    
+    /**
+	 * 导入预算文档
+	 * @param ctx
+	 * @param context
+	 * @return
+	 */
+    public static Map<String, Object> importBmDocument(DispatchContext ctx, Map<String, ?> context) {
+    	
+    	Map<String, Object> result = ServiceUtil.returnSuccess();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        
+		
+        return result;
+    }
+    
+    
+    
+    /**
+	 * 搜索定额
+	 * @param ctx
+	 * @param context
+	 * @return
+	 */
+    public static Map<String, Object> searchQuota(DispatchContext ctx, Map<String, ?> context) {
+    	
+    	Map<String, Object> result = ServiceUtil.returnSuccess();
+        Delegator delegator = ctx.getDelegator();
+        Security security = ctx.getSecurity();
+        
+		
+        return result;
+    }
+    
+    
+    
 	
 }
