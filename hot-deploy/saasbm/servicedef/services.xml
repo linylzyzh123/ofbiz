@@ -14,21 +14,21 @@
     
     <service name="ehebm.getBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="getBmDocument">
     	<description>读取预算书</description>
-		<attribute name="docId" mode="IN" type="String" optional="false"></attribute>
+		<attribute name="docId" mode="IN" type="String" optional="true"></attribute>
 		<attribute name="document" mode="OUT" type="java.util.Map" optional="true"></attribute>
 	</service>
 	<service name="ehebm.createBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="createBmDocument">
 		<description>创建预算书</description>
-		<attribute name="docJson" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
 	</service>
 	<service name="ehebm.importBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="importBmDocument">
 		<description>excel导入预算书</description>
-		<attribute name="docJson" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
 	</service>
 	<service name="ehebm.updateBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="updateBmDocument">
 		<description>更新预算书</description>
 		<attribute name="docId" mode="IN" type="String" optional="true"></attribute>
-		<attribute name="docJson" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
 	</service>
 	<service name="ehebm.createBmDocument" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="createBmDocument">
 		<description>删除预算书</description>
@@ -36,7 +36,7 @@
 	</service>
 	<service name="ehebm.searchQuota" engine="java" location="com.ehesys.saas.bm.BmServices" invoke="searchQuota">
 		<description>定额搜索</description>
-		<attribute name="docJson" mode="IN" type="String" optional="true"></attribute>
+		<attribute name="document" mode="IN" type="String" optional="true"></attribute>
 	</service>
 	
     

@@ -56,10 +56,10 @@ md-content.md-default-theme {
 }
 .md-subheader.md-room-theme {
 	color: rgba(0, 0, 0, 0.54);
-	background-color: #e6e6e6;
-	border-bottom:1px solid grey;
+	background-color: #dcecfb;
+	border-bottom:1px solid #BFBFBF;
 	height: 36px;
 }
 .md-subheader.md-default-theme.md-primary {
-	color: #03a9f4;
+	color: #000000;
 }

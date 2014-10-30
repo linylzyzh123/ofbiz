@@ -96,6 +96,10 @@ module.factory('$eheRequest', ['$q', '$rootScope', '$http', function ($q, $scope
   }]);
 
 
+
+//$idGenerator
+//((new Date().getTime()) ^ Math.random())
+
 /**
  * 别名服务，根据id查找相应的名称说明
  */

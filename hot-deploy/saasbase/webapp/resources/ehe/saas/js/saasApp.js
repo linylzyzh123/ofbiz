@@ -2,9 +2,10 @@
 angular.module('saasApp', [
 //  'ngRoute',
 	'eheMaterial',
-	'ehe.common.services',
+//	'ehe.saas.bm.services',
 //  'ehe.dialog',
 //  'ehe.grid',
+	'ehe.common.services',
 //  'ehe.common.directives',
 //  'ehe.saas.filters',
 //  'ehe.saas.bm.services',
@@ -40,9 +41,6 @@ angular.module('saasApp', [
     }
     
     
-    $scope.sousuo = function() {
-    	alert($scope.dingeku.cailiao[0].name);
-    }
     
     $scope.quotaDocument = {
 		quotaHead: {},
@@ -65,7 +63,7 @@ angular.module('saasApp', [
     	itemId++;
     	var item = {};
     	item.id = 'B' + itemId;
-    	item.itemName = quota.name;
+    	item.name = quota.name;
     	item.quantity ='0';
     	item.quantityUom = '个';
     	item.unitPrice ='0';
@@ -79,7 +77,7 @@ angular.module('saasApp', [
     /**
      * 新增room 目前currentSubProject未改
      */
-//    $scope.currentSubProject = $scope.quotaDocument.subProjects[0];
+    $scope.currentSubProject = $scope.quotaDocument.subProjects[0];
     $scope.addRoom = function(pj) {
     	var room = {};
     	room.id = 'R004';
@@ -105,11 +103,19 @@ angular.module('saasApp', [
 	});
     
     
+    
+    
+    
+    
     /**
      * 删除清单项目
      */
     $scope.deleteBillItem = function(room,item) {    	
-    	room.billItems.pop(item);
+    	for(var i=0; i<room.billItems.length; i++){
+            if(room.billItems[i].id==item.id){ 
+            	room.billItems.splice(i,1);
+            }
+          }
     }
     /**
      * 编辑清单项目
@@ -154,6 +160,85 @@ angular.module('saasApp', [
     
     $scope.loadBmDoc();
     
+    
+    
+    var BillItem = function(options) {
+		
+		this.clazz = 'BillItem';
+		
+		this.id = options.id || $idGenerator.genId();
+		
+		this.products = [];
+		
+		this.init(options);
+		
+	};
+    
+	BillItem.prototype = angular.extend(BillItem.prototype, {
+		
+		getJsonObject: function() {
+			var jsonObj = {};
+			
+			var $this = this;
+			angular.forEach($this, function(value, key) {
+				
+				
+				if(!angular.isFunction(value) && key != 'clazz' && key != 'id' && key != 'products') {
+					$this[key] = value;
+				}
+				
+				
+			});
+		},
+		init: function(options) {
+			
+			this.update(options);
+		},
+		update: function(options) {
+			var $this = this;
+			angular.forEach(options, function(value, key) {
+				$this[key] = value;
+			});
+		},
+		remove: function() {
+			
+		},
+		addProduct: function(options) {
+			
+		},
+		deleteProduct: function(product) {
+			
+		}
+	});
+	
+    $scope.test = function() {
+    	
+    	
+    	var aaa = new BillItem({
+    		id: 1231241,
+    		aa: 111,
+    		bb: 222,
+    		cc: 333
+    	});
+    	aaa.getJsonObject();
+    }
+    
+    
+    $timeout(function() {
+    	jQuery(".deractorRoom").mouseover(function(){
+        	jQuery(".subProject_op").attr("style","display:inline-flex");
+    	});
+        jQuery(".deractorRoom").mouseout(function(){
+        	jQuery(".subProject_op").hide();
+    	});
+        jQuery(".rooms_op").mouseover(function(event){
+        	jQuery(event.target).parent().children(".rooms_op_img").attr("style","display:inline-flex");
+    	});
+        jQuery(".rooms_op").mouseout(function(){
+        	jQuery(".rooms_op_img").hide();
+    	});
+    }, 1000);
+
 })
 
 //.config(['$routeProvider', function($routeProvider) {
