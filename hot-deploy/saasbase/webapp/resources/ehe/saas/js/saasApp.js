@@ -7,7 +7,7 @@ angular.module('saasApp', [
 //  'ehe.grid',
 //  'ehe.common.directives',
 //  'ehe.saas.filters',
-//  'ehe.saas.services',
+//  'ehe.saas.bm.services',
 //  'ehe.saas.directives',
 //  'ehe.saas.controllers'
 ])
@@ -44,134 +44,14 @@ angular.module('saasApp', [
     	alert($scope.dingeku.cailiao[0].name);
     }
     
-    
-    $scope.quotaDocument={
-        quotaHead: {
-            docId: '123124125',
-            orgName: '东易日盛',
-            quotaName: '工程报价单',
-            quotaType: '工程预算',
-            projectCode: '1161113120060',
-            projectName: '无锡市太湖',
-            revisionCode: '1.0.1',
-            createdBy: '',
-            createdTimestamp: '',
-            updatedBy: '',
-            updatedTimestamp: '',
-            status: '草稿',
-
-            approvedBy: '',
-            approvedTimestamp: '',
-            designerSignature: '',
-            accountSignature: '',
-            approverSignature: '',
-
-            uom: '',
-            totalPrice: '12312',
-        },
-
-        subProjects: [{                           
-            id: '',
-            projectType: 'ROOMS',                   //ROOMS、CIVIL_WORKS、OTHER_PROJECT
-            name: '房间',                       //房间、土建、其他
-            description: '',
-            rooms: [{                            //部位
-                    id: 'R001',
-                    type: 'room',
-                    name: '主卧',
-                    description: '',
-                    billItems: [{                //清单项目
-                        id: 'B001',
-                        code: '',
-                        itemName: '主卧墙面防潮',
-                        quantity: '20',
-                        quantityUomId: '',
-                        quantityUom: '平方米',
-                        unitPrice: '100',
-                        totalPrice: '2000',
-                        rulesDescription: '无',   //计算规则
-                        processDescription: '无', //工艺说明
-                    },{
-                        id: 'B002',
-                        code: '',
-                        itemName: '主卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    }]
-                },{
-                    id: 'R002',
-                    type: 'room',
-                    name: '客厅',
-                    description: '',
-                    billItems: [{                //清单项目
-                        id: 'B003',
-                        code: '',
-                        itemName: '客厅墙面防潮',
-                        quantity: '20',
-                        quantityUomId: '',
-                        quantityUom: '平方米',
-                        unitPrice: '100',
-                        totalPrice: '2000',
-                        rulesDescription: '无',   //计算规则
-                        processDescription: '无', //工艺说明
-                    },{
-                        id: 'B004',
-                        code: '',
-                        itemName: '客厅楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    }]
-                },{
-                    id: 'R003',
-                    type: 'room',
-                    name: '次卧',
-                    description: '',
-                    billItems: [{                //清单项目
-                        id: 'B005',
-                        code: '',
-                        itemName: '次卧墙面防潮',
-                        quantity: '20',
-                        quantityUomId: '',
-                        quantityUom: '平方米',
-                        unitPrice: '100',
-                        totalPrice: '2000',
-                        rulesDescription: '无',   //计算规则
-                        processDescription: '无', //工艺说明
-                    },{
-                        id: 'B006',
-                        code: '',
-                        itemName: '次卧楼梯加宽',
-                        quantity: '10',
-                        quantityUomId: '',
-                        quantityUom: '个',
-                        unitPrice: '50',
-                        totalPrice: '1000',
-                        rulesDescription: '2333',           
-                        processDescription: '2333',         
-                    }]
-                }]
-    	}],
-
-        rateSet: {                    //费率设置
-            profitRate: 0.5,        //利润率
-            managementFee: 12,        //管理费
-            taxRate: 0.3,                //税率
-        },
-
-
+    $scope.quotaDocument = {
+		quotaHead: {},
+		subProjects: []
     };
     
-    $scope.currentRoom = $scope.quotaDocument.subProjects[0].rooms[0];
+//    $scope.currentRoom = $scope.quotaDocument.subProjects[0].rooms[0];
+    
+    
     
     $scope.chooseRoom = function(room) {
     	$scope.currentRoom = room;
@@ -199,7 +79,7 @@ angular.module('saasApp', [
     /**
      * 新增room 目前currentSubProject未改
      */
-    $scope.currentSubProject = $scope.quotaDocument.subProjects[0];
+//    $scope.currentSubProject = $scope.quotaDocument.subProjects[0];
     $scope.addRoom = function(pj) {
     	var room = {};
     	room.id = 'R004';
@@ -231,23 +111,48 @@ angular.module('saasApp', [
     $scope.deleteBillItem = function(room,item) {    	
     	room.billItems.pop(item);
     }
-    
+    /**
+     * 编辑清单项目
+     */
     $scope.updateBillItem = function(item) {
     	
     }
     
-    
-    $scope.test = function() {
+    /**
+     * 读取预算书
+     */
+    $scope.loadBmDoc = function() {
     	$eheRequest.post('/saasbm/control/getBmDocumentAjax', {
     		docId: 123
     	}).then(function(result) {
     		
-    		alert(result.document);
-    		var aaa = "sad";
+    		if(result && result.document && result.document.quotaHead) {
+    			
+				$scope.quotaDocument = result.document;
+    			
+    		}
     		
     	});
     	
     };
+    
+    /**
+     * 保存预算书
+     */
+    $scope.saveBmDoc = function() {
+    	
+    	var isNew = true;
+    	
+    	var requestUrl = '/saasbm/control/updateBmDocumentAjax';
+    	if(isNew) {
+    		
+    	}
+    	
+    };
+    
+    
+    
+    $scope.loadBmDoc();
     
 })
 

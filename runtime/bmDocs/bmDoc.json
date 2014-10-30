@@ -1,0 +1,125 @@
+{
+    quotaHead: {
+        docId: '123124125',
+        orgName: '东易日盛',
+        quotaName: '工程报价单',
+        quotaType: '工程预算',
+        projectCode: '1161113120060',
+        projectName: '无锡市太湖',
+        revisionCode: '1.0.1',
+        createdBy: '',
+        createdTimestamp: '',
+        updatedBy: '',
+        updatedTimestamp: '',
+        status: '草稿',
+
+        approvedBy: '',
+        approvedTimestamp: '',
+        designerSignature: '',
+        accountSignature: '',
+        approverSignature: '',
+
+        uom: '',
+        totalPrice: '12312'
+    },
+
+    subProjects: [{                           
+        id: '',
+        projectType: 'ROOMS',
+        name: '房间',
+        description: '',
+        rooms: [{  
+                id: 'R001',
+                type: 'room',
+                name: '主卧',
+                description: '',
+                billItems: [{
+                    id: 'B001',
+                    code: '',
+                    itemName: '主卧墙面防潮',
+                    quantity: '20',
+                    quantityUomId: '',
+                    quantityUom: '平方米',
+                    unitPrice: '100',
+                    totalPrice: '2000',
+                    rulesDescription: '无',
+                    processDescription: '无'
+                },{
+                    id: 'B002',
+                    code: '',
+                    itemName: '主卧楼梯加宽',
+                    quantity: '10',
+                    quantityUomId: '',
+                    quantityUom: '个',
+                    unitPrice: '50',
+                    totalPrice: '1000',
+                    rulesDescription: '2333',           
+                    processDescription: '2333'         
+                }]
+            },{
+                id: 'R002',
+                type: 'room',
+                name: '客厅',
+                description: '',
+                billItems: [{
+                    id: 'B003',
+                    code: '',
+                    itemName: '客厅墙面防潮',
+                    quantity: '20',
+                    quantityUomId: '',
+                    quantityUom: '平方米',
+                    unitPrice: '100',
+                    totalPrice: '2000',
+                    rulesDescription: '无',
+                    processDescription: '无'
+                },{
+                    id: 'B004',
+                    code: '',
+                    itemName: '客厅楼梯加宽',
+                    quantity: '10',
+                    quantityUomId: '',
+                    quantityUom: '个',
+                    unitPrice: '50',
+                    totalPrice: '1000',
+                    rulesDescription: '2333',           
+                    processDescription: '2333'         
+                }]
+            },{
+                id: 'R003',
+                type: 'room',
+                name: '次卧',
+                description: '',
+                billItems: [{ 
+                    id: 'B005',
+                    code: '',
+                    itemName: '次卧墙面防潮',
+                    quantity: '20',
+                    quantityUomId: '',
+                    quantityUom: '平方米',
+                    unitPrice: '100',
+                    totalPrice: '2000',
+                    rulesDescription: '无',
+                    processDescription: '无'
+                },{
+                    id: 'B006',
+                    code: '',
+                    itemName: '次卧楼梯加宽',
+                    quantity: '10',
+                    quantityUomId: '',
+                    quantityUom: '个',
+                    unitPrice: '50',
+                    totalPrice: '1000',
+                    rulesDescription: '2333',           
+                    processDescription: '2333'         
+                }]
+            }]
+	}],
+
+    rateSet: {
+        profitRate: 0.5,
+        managementFee: 12,
+        taxRate: 0.3,
+    }
+
+
+}
