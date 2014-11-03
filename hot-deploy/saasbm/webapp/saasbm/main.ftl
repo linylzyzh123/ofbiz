@@ -1,3 +1,69 @@
+<script type="text/javascript">
+	jQuery(function() {
+ 		jQuery("#showEmployee").jstree({
+	        "core":{"initially_open":["eheCompany"]},//自动展开的节点
+	        "ui" : { "initially_select" : ["eheCompany"]},
+	        "plugins":["themes","json_data", "ui"],
+	        "json_data" : {
+	            "ajax" : {
+	            	"type": "POST",  
+	                "url" : "/eheoa/control/createEmployeeTreeAjax?companyId=eheCompany",
+	                "data" : function (n) {
+	                    return { id : n.attr ? n.attr("id") : "-1" };
+	                }
+	            },
+	            progressive_render:true
+	        },
+	        "themes":{
+	            "theme":"classic",
+	            "dots":true,
+	            "icons":false
+	        }
+	    }).bind("select_node.jstree", function (e, data) {//单击触发的事件 
+	    	jQuery("#contactListTabsDiv").show();
+	    	var id = data.rslt.obj.attr("id");
+	    	var personType = "EMPLOYEE";
+		    new Ajax.Updater("positionInfo", "/eheoa/control/contactList?selectedId="+id+"&personType={personType!''}", 
+		    		{evalScripts: true,asynchronous:false,onComplete: function(){	jQuery("#positionInfo").show();}});
+	    });
+});
+
+function selectQutas(){
+     var qutasType = jQuery("#qutasType").val();
+		if("001"==qutasType){
+			alert("001");
+		}else if("002"==qutasType){
+			alert("002");
+		}else if("003"==qutasType){
+			alert("003");
+		}else{
+			alert(qutasType);
+		}
+}
+
+function opProject(){
+	var status = jQuery("#status").val();
+	if(status=="hide"){
+		jQuery("#rooms").show();
+		jQuery("#status").val("show");
+	}else if(status=="show"){
+		jQuery("#rooms").hide();
+		jQuery("#status").val("hide");
+	}
+}
+function opToolbar(){
+    var status = jQuery("#toolbar1Status").val();
+    if(status=="hide"){
+		jQuery("#content1").show();
+        jQuery("#content2").attr("style","height:250px;");
+        jQuery("#toolbar1Status").val("show");
+	}else if(status=="show"){
+		jQuery("#content1").hide();
+        jQuery("#content2").attr("style","height:516px;");
+        jQuery("#toolbar1Status").val("hide");
+	}
+}
+</script>
 
 <div class="container">
 
@@ -76,19 +142,24 @@
 								<div class="toolbar-tools">
 							      <h3>
 							        <span>工程部位</span>
-							      </h3>
+							      </h3>	
+							      <div style="width:110px;"></div>						    
+							      <div><md-button class="md-raised md-primary" onClick="opToolbar()"></md-button></div>
+							      <input type="hidden" id="toolbar1Status" value="show">
 							    </div>
 							</div>
-							<div class="content content-padding" style="height:250px;">
-								
-								<div><pre><span>   装饰工程</span></pre></div>
-        						<ul>
-            						<li><pre><a href="#">       客厅</a><span>（3.5*3.5*2.8）</span></pre></li>
-            						<li><pre><a href="#">       主卧</a><span>（4*3.5*2.8）</span></pre></li>
-            						<li><pre><a href="#">       次卧</a><span>（3.2*3.2*2.8）</span></pre></li>
-           						 	<li><pre><a href="#">       餐厅</a><span>（3*3.2*2.8）</span></pre></li>
-            						<li><pre><a href="#">       卫生间</a><span>（2.5*3*2.6）</span></pre></li>
-								</ul>
+							<div id="content1" class="content content-padding" style="height:250px;">
+								<div><pre><span><a onClick="opProject()" href="#">   装饰工程</a></span></pre></div>
+								<input type="hidden" id="status" value="show">
+								<div id="rooms">
+	        						<ul>
+	            						<li><pre><a href="#">       客厅</a><span>（3.5*3.5*2.8）</span></pre></li>
+	            						<li><pre><a href="#">       主卧</a><span>（4*3.5*2.8）</span></pre></li>
+	            						<li><pre><a href="#">       次卧</a><span>（3.2*3.2*2.8）</span></pre></li>
+	           						 	<li><pre><a href="#">       餐厅</a><span>（3*3.2*2.8）</span></pre></li>
+	            						<li><pre><a href="#">       卫生间</a><span>（2.5*3*2.6）</span></pre></li>
+									</ul>
+								</div>	
 							</div>
 						</div>
 						
@@ -100,25 +171,40 @@
 							      </h3>
 							    </div>
 							</div>
-							<div class="content content-padding" style="height:250px;">
+							<div id="content2" class="content content-padding" style="height:250px;">
 								<div>
-									<select style="width:189px;" class="form-control"> 
+									<select id="qutasType" name="qutasType" style="width:189px;" class="form-control" onChange="selectQutas();"> 
 										<option>不限</option> 
-										<option ng-repeat="quota in quotas.type" value="{{quota.id}}">
+										<option ng-repeat="quota in quotaList.type" value="{{quota.id}}">
 											{{quota.name}}
 										</option> 
 									</select> 
 								</div>
 								<div class="bm-row">
-								  <div class="bm-search">
-								  	<input style="width:145px;" type="search" placeholder="输入定额名称" class="form-control search-input pull-left">
-								  </div>
-								  <div class="bm-search">
-								  	<button style="line-height:10px;height: 30px;width: 40px;"class="search-btn btn btn-default pull-left">查询</button>
-								  </div>
+									  <div class="bm-search">
+									  	<input style="width:145px;" type="search" placeholder="输入定额名称" class="form-control search-input pull-left" ng-model="searchText">
+									  </div>
+									  <div class="bm-search">
+									  	<button style="line-height:10px;height: 30px;width: 40px;"class="search-btn btn btn-default pull-left">查询</button>
+									  </div>
 								</div>
 								<div>
-							    	<textarea  class="form-control  pull-left" style="height: 170px;width: 189px;">地面找平 25.00</textarea>    
+									<div >
+										<table id="searchTextResults" border="0">
+										  <tr ng-repeat="quota in quotas | filter:searchText">
+										    <td>{{quota.name}}</td>
+										  </tr>
+										</table>
+										<div ng-init="quotas = [
+											 {id:'QT001', name:'天棚定额'},
+					                         {id:'QT002', name:'墙面涂漆'},
+					                         {id:'QT003', name:'地面找平'},
+					                         {id:'QT004', name:'墙面拆除'},
+					                         {id:'QT005', name:'地面铺砖'},
+					                         {id:'QT006', name:'电线安装'}
+					                         ]">
+			                         	</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -132,28 +218,36 @@
                        	    <thead>
                                 <tr>
                                     <th>项目</th>        
-                                    <th>数量</th>
+        							<th>单位</th>
+        							<th>工程量</th>
         							<th>单价</th>
-        							<th>金额</th>
-        							<th>备注</th>
+        							<th>合计</th>
+        							<th>计量规则</th>
+        							<th>工艺说明</th>
     							</tr>
     						</thead>
-    							<tr ng-repeat="i in [1,2,3,4,5]">
+    							<tr ng-repeat="i in [1,2,3,4,5,6,7]">
        								 <td>2222</td>        
        								 <td>22222</td>
         							 <td>22222</td>
+        							 <td>23333</td>
+        							 <td>23333</td>
         							 <td>23333</td>
         							 <td>23333</td>
    								 </tr>
 						</table>
 					</div>
 					
+					<div>
+					
+					
+					</div>
 					
 					<div id="bm-footer">
 				
 						<div class="bottom-toolbar">
 							<md-button class="md-raised md-primary">保存</md-button>
-							<md-button class="md-raised md-default">保存为模板</md-button>
+							<md-button class="md-raised md-default">存为模板</md-button>
 							<md-button class="md-raised md-warn">审核锁定</md-button>
 							<md-button class="md-raised md-default">导出</md-button>
 							<md-button class="md-raised md-default">打印</md-button>
